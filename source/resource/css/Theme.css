@@ -1,0 +1,287 @@
+/*
+    COPYRIGHT 2021 @ LewdTechnologies
+
+    CONTACT:
+    # Email: LewdTechnologies@gmail
+    # Website: Github.com/LewdTechnologies/Neko
+*/
+
+
+/*
+      BASE
+*/
+
+* {
+   width: fit-content;
+   height: fit-content;
+   position: relative;
+   margin: 0;
+   padding: 0;
+   border: none;
+   outline: none;
+   color: var(--font-light);
+   text-decoration: none;
+   font-family: var(--font-default);
+   user-select: none;
+   overflow: hidden;
+}
+
+
+/*
+      LINK
+*/
+
+a {
+   user-select: all;
+}
+
+
+/*
+      SCROLLBAR
+*/
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+/*
+      BODY
+*/
+
+body {
+
+   min-width: 100vw;
+   min-height: 100vh;
+   max-width: 100vw;
+   max-height: 100vh;
+
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: stretch;
+
+   background-color: var(--blue-dark);
+   background-image: var(--background);
+
+}
+
+
+/*
+      NAVIGATION
+*/
+
+navigation {
+
+   width: calc(100% - 16px);
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: space-evenly;
+   align-items: center;
+
+   background: var(--blue-dark);
+   padding: 8px;
+   margin: 0 32px;
+   border-radius: 0 0 8px 8px;
+
+}
+
+navigation > a {
+
+   font-weight: bold;
+
+}
+
+
+/*
+      CONTENT
+*/
+
+main {
+
+   width: calc(100% - 16px);
+   height: -webkit-fill-available;
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-content: flex-start;
+   justify-content: stretch;
+   align-items: flex-start;
+
+   padding: 8px;
+
+}
+
+
+left {
+
+   min-width: fit-content;
+   min-height: fit-content;
+   height: 100%;
+
+}
+
+
+middle {
+
+   width: 100%;
+   height: 100%;
+
+}
+
+
+/*
+      TAG LIST
+*/
+
+left > taglist {
+
+   height: calc(100% - 36px);
+
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: flex-start;
+   align-items: stretch;
+   justify-content: flex-start;
+
+   background-color: var(--blue-dim);
+   background-image: var(--decoration);
+   background-repeat-y: no-repeat;
+
+   padding: 18px;
+   margin-right: 8px;
+   border-radius: 8px;
+   gap: 8px;
+
+   overflow-y: scroll;
+
+}
+
+taglist > tag {
+
+   width: 100%;
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: space-between;
+   align-items: center;
+
+   gap: 6px;
+
+}
+
+taglist > tag > name {
+
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: center;
+
+}
+
+taglist > tag > count {
+
+   color: var(--font-gray);
+   font-size: 12px;
+   font-weight: bold;
+
+}
+
+taglist > tag > a {
+
+   position: absolute;
+   width: 100%;
+   height: 100%;
+
+}
+
+
+/*
+      POSTS
+*/
+
+middle > posts {
+
+   width: 100%;
+   height: 100%;
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   align-content: flex-start;
+   justify-content: center;
+   align-items: flex-start;
+
+   overflow-y: scroll;
+
+}
+
+posts > post {
+
+   width: 200px;
+   height: 200px;
+
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: center;
+   align-items: center;
+
+}
+
+posts > post > img {
+
+   width: 180px;
+   height: 180px;
+
+   max-width: 100%;
+   max-height: 100%;
+
+   background-color: var(--blue-dim);
+   border-radius: 8px;
+   border: 3px solid transparent;
+
+   transition: all .6s ease;
+
+}
+
+
+/*
+      HIDING ORIGINAL PAGE
+*/
+
+html#original * {
+   visibility: hidden;
+}
+
+html#original div#blank , html#original div#blank * {
+   visibility: visible;
+}
+
+
+#blank {
+   position: absolute;
+
+   min-width: 100vw;
+   min-height: 100vh;
+   max-width: 100vw;
+   max-height: 100vh;
+
+   background-color: gray;
+   z-index: 99999999;
+
+   background-color: var(--blue-dark);
+   background-image: var(--background);
+}

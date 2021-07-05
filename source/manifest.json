@@ -1,0 +1,80 @@
+{
+	"name": "Neko",
+	"short_name": "猫",
+	"version": "2.0.0",
+	"version_name": "DreamButt",
+	"author": "LewdTechnologies",
+
+	"description": "Neko redesigns E621's interface.",
+	"homepage_url": "https://github.com/LewdTechnologies/Neko",
+
+	"permissions": [
+		"background",
+		"activeTab",
+		"storage",
+		"tabs",
+		"webRequest",
+      "webRequestBlocking",
+		"https://*.e621.net/*",
+		"https://e621.net/*",
+		"https://ads.dragonfru.it/*",
+		"https://mc.yandex.ru/*"
+	],
+
+	"background": {
+		"persistent": true,
+		"scripts": [
+			"source/library/Functions.js",
+			"source/library/Debug.js",
+			"source/library/Logger.js",
+			"source/library/FindElement.js",
+			"source/library/TagName.js",
+
+			"source/background/Manifest.js",
+			"source/background/Version.js",
+
+			"source/background/BlockUnused.js",
+			"source/background/RelevantTabs.js",
+			"source/background/Extractor.js",
+			"source/background/extractors/Posts.js",
+			"source/background/extractors/Tag.js",
+
+			"source/Background.js"
+		]
+	},
+
+	"web_accessible_resources": [ "resource/*" ],
+
+	"manifest_version": 2,
+
+	"icons": {
+		"16":  "resource/icons/neko/16x16.png",
+		"32":  "resource/icons/neko/32x32.png",
+		"64":  "resource/icons/neko/64x64.png"
+	},
+
+	"content_scripts": [{
+		"run_at": "document_start",
+		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
+		"js": [ "source/content/templates/Posts.js" ]
+	},{
+		"run_at": "document_start",
+		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
+		"js": [
+			"source/library/Functions.js",
+			"source/content/Template.js",
+			"source/library/Debug.js",
+			"source/library/Logger.js",
+			"source/library/FindElement.js",
+			"source/content/Page.js"
+		],
+		"css": [
+			"resource/css/Theme.css",
+			"resource/css/Hexagons.css"
+		]
+	},{
+		"run_at": "document_end",
+		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
+		"js": [ "source/content/PageFiller.js" ]
+	}]
+}
