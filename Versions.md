@@ -1,4 +1,9 @@
 
+#### 2.0.2 BulletBunny
+\+ Login / Logout button<br>
+\+ Logout clears user data
+
+---
 
 #### 2.0.1 DigitalMind
 ~ Fixed thumbnail sizing<br>
