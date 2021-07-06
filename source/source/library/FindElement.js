@@ -33,4 +33,7 @@
    selectAll = (document,selector) =>
       [...find(document,selector,'querySelectorAll')];
 
+   findMeta = (document,name) =>
+      select(document,`[name=${ name }]`)?.content;
+
 })();

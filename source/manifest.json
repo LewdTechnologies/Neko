@@ -1,8 +1,8 @@
 {
 	"name": "Neko",
 	"short_name": "猫",
-	"version": "2.0.1",
-	"version_name": "DigitalMind",
+	"version": "2.0.2",
+	"version_name": "BulletBunny",
 	"author": "LewdTechnologies",
 
 	"description": "Neko redesigns E621's interface.",
@@ -13,6 +13,7 @@
 		"activeTab",
 		"storage",
 		"tabs",
+		"cookies",
 		"webRequest",
       "webRequestBlocking",
 		"https://*.e621.net/*",
@@ -32,6 +33,7 @@
 
 			"source/background/Manifest.js",
 			"source/background/Version.js",
+			"source/background/User.js",
 
 			"source/background/BlockUnused.js",
 			"source/background/RelevantTabs.js",
@@ -66,7 +68,8 @@
 			"source/library/Debug.js",
 			"source/library/Logger.js",
 			"source/library/FindElement.js",
-			"source/content/Page.js"
+			"source/content/Page.js",
+			"source/content/User.js"
 		],
 		"css": [
 			"resource/css/Theme.css",

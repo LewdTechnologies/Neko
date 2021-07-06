@@ -90,9 +90,15 @@ navigation {
 
 }
 
-navigation > a {
+navigation > * {
 
    font-weight: bold;
+
+}
+
+navigation > div {
+
+   cursor: pointer;
 
 }
 

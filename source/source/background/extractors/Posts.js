@@ -18,7 +18,8 @@
 
       const info = {
          posts: [],
-         tags: []
+         tags: [],
+         user: {}
       };
 
 
@@ -40,6 +41,24 @@
          extractPost(element)((postData) => {
             info.posts.push(postData);
          });
+
+
+      /*
+            EXTRACT USER DATA
+      */
+
+      (() => {
+
+         const [ id , name ] = [ 'id' , 'name' ]
+            .map((type) => `current-user-${ type}`)
+            .map((name) => findMeta(doc,name));
+
+         info.user.name = name;
+         info.user.id = Number(id) ?? -1;
+         info.user.isAnon = (name === 'Anonymous');
+
+      })();
+
 
       resolve(info);
    };

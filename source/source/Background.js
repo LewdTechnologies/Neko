@@ -54,6 +54,9 @@
    on('extractHtml',(data) =>
       Extractor.process(data));
 
+   on('user.logout',() =>
+      User.logout);
+
 })();
 
 

@@ -174,13 +174,34 @@
          });
 
       })();
+
+
+      /*
+            FURNISH LOG-IO
+      */
+
+      (() => {
+
+         const { isAnon } = info.user;
+
+         const button = findClass('logIO');
+
+         const [ txt , color , action ] = isAnon
+         ? [ 'Login' , 'red' , () => redirectTo(`/session/new`) ]
+         : [ 'Logout' , 'var(--font-gray)' , () => User.logout() ];
+
+         button.innerText = txt;
+         button.onclick = action;
+         button.style.color = color;
+
+      })();
    };
 
 
    Template = `
             <navigation>
+               <div class='logIO'></div>
                <a href='/'>E621</a>
-               <a href='/session/new'>Login</a>
                <a href='/posts'>Posts</a>
                <a href='/comments?group_by=post'>Comments</a>
                <a href='/artists'>Artists</a>
