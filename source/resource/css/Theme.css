@@ -23,7 +23,6 @@
    text-decoration: none;
    font-family: var(--font-default);
    user-select: none;
-   overflow: hidden;
 }
 
 
@@ -229,8 +228,8 @@ middle > posts {
 
 posts > post {
 
-   width: 200px;
-   height: 200px;
+   width: 175px;
+   height: 175px;
 
    display: flex;
    flex-direction: column;
@@ -243,17 +242,26 @@ posts > post {
 
 posts > post > img {
 
-   width: 180px;
-   height: 180px;
+   max-width: 150px;
+   max-height: 150px;
 
-   max-width: 100%;
-   max-height: 100%;
+   width: auto;
+   height: auto;
 
    background-color: var(--blue-dim);
    border-radius: 8px;
    border: 3px solid transparent;
 
-   transition: all .6s ease;
+   transition: all 1s ease;
+
+   cursor: pointer;
+
+}
+
+posts > post > img.dummy {
+
+   width: 150px;
+   height: 150px;
 
 }
 

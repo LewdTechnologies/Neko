@@ -9,6 +9,7 @@
 
 (() => {
 
+   console.clear();
    console.time('Page Load');
 
 

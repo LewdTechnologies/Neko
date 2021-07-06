@@ -52,6 +52,7 @@
             const { dataset } = element;
 
             const info = {
+               id: dataset.id,
                comments: Number(select(element,'.desc > .post-score > .post-score-comments')?.innerText.substring(1) ?? -1),
                favorites: Number(dataset.favCount),
                extension: dataset.fileExt,
