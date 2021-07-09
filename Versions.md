@@ -1,4 +1,15 @@
 
+#### 2.0.3 PsychoFur
+\+ Search:
+   - Input with auto prettify
+   - Press `Tab` outside the search to focus the search field
+   - Press `Tab` to add the current tag to search list
+     (Only valid / existing tags can be added)
+   - Press `Ctrl` to see suggestions for existing tags
+   - Press `Shift + Del` to clear the search
+   - Press `Enter` to start the search
+
+
 #### 2.0.2 BulletBunny
 \+ Login / Logout button<br>
 \+ Logout clears user data
