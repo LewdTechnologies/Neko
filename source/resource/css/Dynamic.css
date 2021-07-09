@@ -1,0 +1,21 @@
+/*
+    COPYRIGHT 2021 @ LewdTechnologies
+
+    CONTACT:
+    # Email: LewdTechnologies@gmail
+    # Website: Github.com/LewdTechnologies/Neko
+*/
+
+
+middle > .hasTags {
+
+   border-top-right-radius: 24px;
+   border-bottom-right-radius: 24px;
+
+}
+
+middle > .hasSuggestions {
+
+   border-bottom-left-radius: 0;
+
+}

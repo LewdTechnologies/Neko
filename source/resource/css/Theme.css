@@ -50,8 +50,10 @@ a {
 
 body {
 
-   min-width: 100vw;
-   min-height: 100vh;
+   min-width: 1000px;
+   min-height: 440px;
+   width: 100vw;
+   height: 100vh;
    max-width: 100vw;
    max-height: 100vh;
 
@@ -74,7 +76,7 @@ body {
 
 navigation {
 
-   width: calc(100% - 16px);
+   width: calc(100% - 64px - 16px);
 
    display: flex;
    flex-direction: row;
@@ -147,6 +149,7 @@ middle {
 
 left > taglist {
 
+   width: 132px;
    height: calc(100% - 36px);
 
    display: flex;
@@ -195,6 +198,13 @@ taglist > tag > name {
 
 }
 
+taglist > tag.dummy > name ,
+taglist > tag.dummy > count {
+
+   filter: blur(2.5px);
+
+}
+
 taglist > tag > count {
 
    color: var(--font-gray);
@@ -208,6 +218,142 @@ taglist > tag > a {
    position: absolute;
    width: 100%;
    height: 100%;
+
+}
+
+
+/*
+      SEARCH
+*/
+
+middle > search {
+
+   width: calc(100% - 44px);
+   min-height: 32px;
+
+   display: flex;
+   flex-direction: row-reverse;
+   flex-wrap: nowrap;
+   align-content: flex-start;
+   justify-content: flex-end;
+   align-items: center;
+
+   margin: 0 20px;
+
+   border-radius: 11px;
+   background-color: #010b1b;
+   border: 6px solid var(--blue-dim);
+
+}
+
+middle > .hasTags {
+
+   border-top-right-radius: 24px;
+   border-bottom-right-radius: 24px;
+
+}
+
+middle > .hasSuggestions {
+
+   border-bottom-left-radius: 0;
+
+}
+
+middle > search > input {
+
+   max-width: 300px;
+   min-width: 300px;
+   height: 38px;
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: center;
+
+   padding: 0 10px;
+
+   color: var(--font-light);
+   border-radius: 7px;
+   background-color: transparent;
+
+   overflow-x: scroll;
+
+}
+
+middle > search > input::selection {
+
+   background-color: var(--font-light);
+   color: var(--blue-dark);
+
+}
+
+middle > search > tags {
+
+   width: -webkit-fill-available;
+
+   display: flex;
+   flex-direction: row-reverse;
+   flex-wrap: wrap;
+   justify-content: flex-start;
+   align-content: flex-start;
+   align-items: flex-start;
+
+   padding: 5px 5px;
+   grid-gap: 5px;
+
+}
+
+middle > search > tags > tag {
+
+   padding: 3px 14px;
+
+   color: var( --font-white);
+   border-radius: 16px;
+   background-color: var(--blue-dim);
+
+}
+
+middle > search > suggestions {
+
+   position: absolute;
+   left: -6px;
+   top: 38px;
+
+   display: flex;
+   flex-direction: column;
+   align-content: center;
+   align-items: stretch;
+   justify-content: center;
+
+   row-gap: 4px;
+   padding: 10px;
+
+   background-color: rgb(1, 11, 27);
+   border: 6px solid var(--blue-dim);
+   border-width: 0 6px 6px 6px;
+   border-radius: 0 0 11px 11px;
+
+   z-index: 99999;
+
+}
+
+middle > search > suggestions > tag {
+
+   width: -webkit-fill-available;
+
+   cursor: pointer;
+   text-align: center;
+
+   border-radius: 10px;
+   padding: 0 16px;
+
+}
+
+middle > search > suggestions > tag:hover {
+
+   background-color: var(--blue-dim);
 
 }
 
@@ -229,6 +375,12 @@ middle > posts {
    align-items: flex-start;
 
    overflow-y: scroll;
+
+}
+
+middle > posts.unfocused {
+
+   filter: grayscale(1) blur(3px);
 
 }
 

@@ -16,6 +16,7 @@
 
    FurnishTemplate = (info) => {
 
+
       const
          { tags , posts } = info,
          { floor } = Math;
@@ -34,11 +35,17 @@
       const redirectTo = (url) =>
          window.location.href = url;
 
-      const gotoPost = (postId) =>
-         redirectTo(`https://e621.net/posts/${ post.id }`);
+      const toPostUrl = (postId) =>
+         `https://e621.net/posts/${ postId }`;
 
-      const toSearch = (tag) =>
-         `https://e621.net/posts?tags=${ tag }`;
+      const toSearch = (query) =>
+         `https://e621.net/posts?tags=${ query }`;
+
+      const gotoPost = (postId) =>
+         redirectTo(toPostUrl(postId));
+
+      const openPost = (postId) =>
+         window.open(toPostUrl(postId),'_blank');
 
       const tagToDisplay = (tagName) => {
 
@@ -130,6 +137,8 @@
             link.href = toSearch(tag.id);
             tagContainer.appendChild(link);
 
+            tagContainer.classList.remove('dummy');
+
          });
 
       })();
@@ -168,6 +177,9 @@
             image.onclick = () =>
                gotoPost(post.id);
 
+            image.oncontextmenu = () =>
+               openPost(post.id);
+
             image.onload = () =>
                classList.remove('dummy');
 
@@ -195,6 +207,15 @@
          button.style.color = color;
 
       })();
+
+
+
+      Search.init();
+      SearchSuggestion.init();
+
+
+
+      window.scrollTo(0,0);
    };
 
 
@@ -217,109 +238,113 @@
             <main>
                <left>
                   <taglist>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
-                     <tag>
-                        <name>IIIIIIIIIII</name>
+                     <tag class='dummy'>
+                        <name>IIIIIIIIIIIIIIIIII</name>
                         <count>100</count>
                      </tag>
                   </taglist>
                </left>
                <middle>
+                  <search>
+                     <suggestions style='visibility: hidden'></suggestions>
+                     <tags></tags>
+                  </search>
                   <posts>
                      <post>
                         <img class='dummy' src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='>

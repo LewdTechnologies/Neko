@@ -1,8 +1,8 @@
 {
 	"name": "Neko",
 	"short_name": "猫",
-	"version": "2.0.2",
-	"version_name": "BulletBunny",
+	"version": "2.0.3",
+	"version_name": "PsychoFur",
 	"author": "LewdTechnologies",
 
 	"description": "Neko redesigns E621's interface.",
@@ -30,8 +30,8 @@
 			"source/library/Logger.js",
 			"source/library/FindElement.js",
 			"source/library/TagName.js",
+			"source/library/Manifest.js",
 
-			"source/background/Manifest.js",
 			"source/background/Version.js",
 			"source/background/User.js",
 
@@ -58,7 +58,13 @@
 	"content_scripts": [{
 		"run_at": "document_start",
 		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
-		"js": [ "source/content/templates/Posts.js" ]
+		"js": [
+			"source/content/templates/Posts.js",
+			"source/content/elements/Search.js",
+			"source/content/elements/SearchSuggestion.js",
+			"source/content/mechanics/TagManager.js",
+			"source/library/TagName.js"
+		]
 	},{
 		"run_at": "document_start",
 		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
@@ -69,11 +75,12 @@
 			"source/library/Logger.js",
 			"source/library/FindElement.js",
 			"source/content/Page.js",
-			"source/content/User.js"
+			"source/content/User.js",
+			"source/library/Manifest.js"
 		],
 		"css": [
-			"resource/css/Theme.css",
-			"resource/css/Hexagons.css"
+			"resource/css/Hexagons.css",
+			"resource/css/Theme.css"
 		]
 	},{
 		"run_at": "document_end",
