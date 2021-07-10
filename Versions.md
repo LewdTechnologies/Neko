@@ -1,28 +1,43 @@
 
+
+#### 2.0.4 CrackJack
+**+** Automatic Suggestions<br>
+   Tag suggestions are automatically shown after a short<br>
+   amount of time if `automatic suggestions` are enabled
+
+**+** Search Options Menu
+   - Press `Capslock` to open
+   - Press `Capslock` / `Tab` / `Esc` to close
+   - Press `A` to toggle `automatic suggestions`<br>
+     (Manual suggestions are shown / hidden by pressing `Ctrl`)
+
+---
+
 #### 2.0.3 PsychoFur
-\+ Search:
+**+** Search:
    - Input with auto prettify
    - Press `Tab` outside the search to focus the search field
-   - Press `Tab` to add the current tag to search list
+   - Press `Tab` to add the current tag to search list<br>
      (Only valid / existing tags can be added)
    - Press `Ctrl` to see suggestions for existing tags
    - Press `Shift + Del` to clear the search
    - Press `Enter` to start the search
 
+---
 
 #### 2.0.2 BulletBunny
-\+ Login / Logout button<br>
-\+ Logout clears user data
+**+** Login / Logout button<br>
+**+** Logout clears user data
 
 ---
 
 #### 2.0.1 DigitalMind
-~ Fixed thumbnail sizing<br>
-\+ Search page thumbnails redirect
+**~** Fixed thumbnail sizing<br>
+**+** Search page thumbnails redirect
 
 ---
 
 #### 2.0.0 DreamButt
-\+ Search page primary navigation<br>
-\+ Search page tag list<br>
-\+ Search page thumbnails<br>
+**+** Search page primary navigation<br>
+**+** Search page tag list<br>
+**+** Search page thumbnails<br>
