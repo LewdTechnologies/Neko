@@ -14,6 +14,12 @@
    let posts , input , search , container;
 
    let open = false;
+   let last = '';
+
+
+   /*
+         SET UP SUGGESTIONS
+   */
 
    SearchSuggestion.init = () => {
 
@@ -22,14 +28,20 @@
       posts = select('posts');
       input = select('search > input');
 
-   }
+   };
 
-   SearchSuggestion.toggle = (string) =>
-      open ? SearchSuggestion.hide() : SearchSuggestion.show(string);
+
+   /*
+         OPEN SUGGESTIONS
+   */
 
    SearchSuggestion.show = (string) => {
 
+      if(open && last === string)
+         return SearchSuggestion.hide();
+
       open = true;
+      last = string;
 
       TagManager
       .search(string)
@@ -58,15 +70,23 @@
          posts.classList.add('unfocused');
          search.classList.add('hasSuggestions');
          container.style.visibility = 'visible';
+         
       });
 
    };
+
+
+   /*
+         CLOSE SUGGESTIONS
+   */
 
    SearchSuggestion.hide = () => {
 
       search.classList.remove('hasSuggestions');
       posts.classList.remove('unfocused');
       container.style.visibility = 'hidden';
+
+      Search.focus();
 
       open = false;
 

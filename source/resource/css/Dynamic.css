@@ -19,3 +19,37 @@ middle > .hasSuggestions {
    border-bottom-left-radius: 0;
 
 }
+
+
+/*
+      SEARCH QUICK SETTINGS
+*/
+
+middle > search > options {
+
+   position: absolute;
+   height: 39px;
+   left: -6px;
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: center;
+
+   padding: 0 10px;
+   margin: 6px;
+   border-radius: 12px;
+
+   z-index: 999;
+
+}
+
+middle > search > options > setting {
+
+   font-weight: bold;
+   color: var(--font-white);
+   cursor: pointer;
+
+}

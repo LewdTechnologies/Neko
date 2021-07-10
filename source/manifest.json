@@ -1,8 +1,8 @@
 {
 	"name": "Neko",
 	"short_name": "猫",
-	"version": "2.0.3",
-	"version_name": "PsychoFur",
+	"version": "2.0.4",
+	"version_name": "CrackJack",
 	"author": "LewdTechnologies",
 
 	"description": "Neko redesigns E621's interface.",
@@ -37,6 +37,7 @@
 
 			"source/background/BlockUnused.js",
 			"source/background/RelevantTabs.js",
+			"source/background/Settings.js",
 			"source/background/Extractor.js",
 			"source/background/extractors/Posts.js",
 			"source/background/extractors/Tag.js",
@@ -60,8 +61,10 @@
 		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
 		"js": [
 			"source/content/templates/Posts.js",
+			"source/content/utils/Settings.js",
 			"source/content/elements/Search.js",
 			"source/content/elements/SearchSuggestion.js",
+			"source/content/elements/SearchOptions.js",
 			"source/content/mechanics/TagManager.js",
 			"source/library/TagName.js"
 		]

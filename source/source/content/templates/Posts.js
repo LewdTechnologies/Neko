@@ -174,11 +174,10 @@
 
             image.src = post.urls.preview;
 
-            image.onclick = () =>
-               gotoPost(post.id);
-
-            image.oncontextmenu = () =>
-               openPost(post.id);
+            image.addEventListener('mousedown',({ button }) =>
+               (button === 0)
+               ? gotoPost(post.id)
+               : openPost(post.id));
 
             image.onload = () =>
                classList.remove('dummy');
@@ -212,6 +211,7 @@
 
       Search.init();
       SearchSuggestion.init();
+      SearchOptions.init();
 
 
 
@@ -342,6 +342,7 @@
                </left>
                <middle>
                   <search>
+                     <options style='visibility: hidden' tabindex='-1'></options>
                      <suggestions style='visibility: hidden'></suggestions>
                      <tags></tags>
                   </search>

@@ -12,6 +12,7 @@
    window.Search ??= {};
 
    let search , input , tags;
+   let timeout;
 
 
    /*
@@ -33,9 +34,9 @@
    const changeTo = (string) =>
       input.value = refactorInput(string);
 
-   const buildQuery = () => {
+   const buildQuery = async () => {
 
-      pushTag();
+      await pushTag();
 
       const query = [...tags.children]
          .map((element) => element.dataset)
@@ -64,12 +65,30 @@
       changeTo(input.value + char);
       delete input.dataset.tag;
       delete input.dataset.id;
+
+      clearTimeout(timeout);
+
+      if(Settings.is('search.automatic_suggestions')){
+
+         timeout = setTimeout(() => {
+            suggest();
+         },500);
+      }
    }
 
    const backtrack = () => {
       changeTo(input.value.slice(0,-1));
       delete input.dataset.tag;
       delete input.dataset.id;
+
+      clearTimeout(timeout);
+
+      if(Settings.is('search.automatic_suggestions')){
+
+         timeout = setTimeout(() => {
+            suggest();
+         },500);
+      }
    }
 
    const pushTag = async () => {
@@ -111,6 +130,7 @@
          element.remove();
 
       input.value = '';
+      search.classList.remove('hasTags');
 
    };
 
@@ -121,7 +141,7 @@
       if(string.length < 3)
          return;
 
-      SearchSuggestion.toggle(string);
+      SearchSuggestion.show(string);
 
    };
 
@@ -133,6 +153,20 @@
    */
 
    Search.changeTo = changeTo;
+
+   Search.focus = () => {
+
+      input.style.visibility = 'visible';
+      input.focus();
+
+   }
+
+   Search.hide = () => {
+
+      SearchSuggestion.hide();
+      input.style.visibility = 'hidden';
+
+   };
 
 
    /*
@@ -182,17 +216,21 @@
    function actionFromInput({ key , code , shiftKey }){
 
       switch(code){
+      case '':
+         return (key === 'Unidentified') ? () => SearchOptions.toggle() : null;
+      case 'Escape':
+         return () => SearchSuggestion.hide();
       case 'Delete':
          return shiftKey && (() => clearTags());
       case 'Enter':
-         return () => redirectTo(buildQuery());
+         return () => buildQuery().then(redirectTo);
       case 'Tab':
          return () => pushTag();
       case 'Backspace':
          return () => backtrack();
       case 'ControlLeft':
       case 'ControlRight':
-         return () => suggest();
+         return () => Settings.not('search.automatic_suggestions') && suggest();
       default:
          if(/^[A-z0-9_ -]$/.test(key))
             return () => append(key);

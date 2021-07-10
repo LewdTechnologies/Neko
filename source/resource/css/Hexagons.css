@@ -29,6 +29,8 @@
    --font-light: #b4c7d9;
    --font-blue: #2e76b4;
    --font-gray: #999999;
+   --font-false: red;
+   --font-true: green;
 
    --blue-dark: #020f23;
    --blue-dim: #152f56;
