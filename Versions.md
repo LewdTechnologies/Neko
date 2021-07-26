@@ -1,11 +1,36 @@
 
+### 2.0.5 SockKeeper
+<br>
 
-#### 2.0.4 CrackJack
-**+** Automatic Suggestions<br>
+**+ Advanced Mode:**
+   - Toggle advanced mode by pressing `F1`<br>
+   - Advanced mode shows more options & information
+
+<br>
+
+**+ Search Ratings:**
+
+   In advanced mode you are now able to toggle<br>
+   a specific search rating by left clicking it.<br>
+   <br>
+   You are also able to set a default search<br>
+   rating that will be applied in your next<br>
+   search if none has been manually selected.<br>
+
+
+---
+
+### 2.0.4 CrackJack
+<br>
+
+**+ Automatic Suggestions:**
+
    Tag suggestions are automatically shown after a short<br>
    amount of time if `automatic suggestions` are enabled
 
-**+** Search Options Menu
+<br>
+
+**+ Search Options Menu:**
    - Press `Capslock` to open
    - Press `Capslock` / `Tab` / `Esc` to close
    - Press `A` to toggle `automatic suggestions`<br>
@@ -13,8 +38,10 @@
 
 ---
 
-#### 2.0.3 PsychoFur
-**+** Search:
+### 2.0.3 PsychoFur
+<br>
+
+**+ Search:**
    - Input with auto prettify
    - Press `Tab` outside the search to focus the search field
    - Press `Tab` to add the current tag to search list<br>
@@ -25,19 +52,19 @@
 
 ---
 
-#### 2.0.2 BulletBunny
+### 2.0.2 BulletBunny
 **+** Login / Logout button<br>
 **+** Logout clears user data
 
 ---
 
-#### 2.0.1 DigitalMind
+### 2.0.1 DigitalMind
 **~** Fixed thumbnail sizing<br>
 **+** Search page thumbnails redirect
 
 ---
 
-#### 2.0.0 DreamButt
+### 2.0.0 DreamButt
 **+** Search page primary navigation<br>
 **+** Search page tag list<br>
 **+** Search page thumbnails<br>
