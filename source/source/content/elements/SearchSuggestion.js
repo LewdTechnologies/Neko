@@ -26,7 +26,7 @@
       container = select('suggestions');
       search = select('search');
       posts = select('posts');
-      input = select('search > input');
+      input = select('search > primary > bar > input');
 
    };
 
@@ -67,10 +67,10 @@
 
          };
 
-         posts.classList.add('unfocused');
          search.classList.add('hasSuggestions');
+         posts.classList.add('unfocused');
          container.style.visibility = 'visible';
-         
+
       });
 
    };

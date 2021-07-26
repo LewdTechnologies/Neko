@@ -53,7 +53,7 @@
 
    SearchOptions.init = () => {
 
-      menu = select('search > options');
+      menu = select('search > primary > bar > options');
 
       for(const [ key , id , txt ] of options){
 

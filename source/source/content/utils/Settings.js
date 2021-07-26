@@ -13,31 +13,46 @@
 
    const { connect } = chrome.runtime;
 
-   const listeners = new Map;
-   let settings;
+   const
+      settings = new Map,
+      listeners = new Map;
 
 
    const port = connect({ name: 'settings' });
-
-   let listener = (data = []) => {
-      settings = new Map(data);
-
-      listener = ([ type , value ]) =>
-         update(type,value);
-   };
-
-   port.onMessage.addListener((...args) => listener(...args));
 
 
    /*
          HELPER
    */
 
-   const update = (type,value) =>
+   const update = (type,value) => {
+
       settings.set(type,value);
+
+      listeners
+      .get(type)
+      ?.forEach((listener) => listener(value));
+
+   };
 
    const transmit = (type,value) =>
       port.postMessage([ type , value ]);
+
+
+   /*
+         LISTENER
+   */
+
+   let listener = (data = []) => {
+
+      data.forEach(([ type , value ]) =>
+         update(type,value));
+
+      listener = ([ type , value ]) =>
+         update(type,value);
+   };
+
+   port.onMessage.addListener((...args) => listener(...args));
 
 
    /*
@@ -83,6 +98,9 @@
       listeners
       .get(type)
       .add(resolve);
+
+      if(settings.has(type))
+         resolve(settings.get(type));
 
    };
 

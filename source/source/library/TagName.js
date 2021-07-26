@@ -31,8 +31,8 @@
 
       string = string
          .trim()
-         .replace(/\w\(/,(match) => match[0] + ' (')
-         .replace(/ +/,' ')
+         .replaceAll(/\w\(/g,(match) => match[0] + ' (')
+         .replaceAll(/ +/g,' ')
          .split(/ |_/)
          .map(trim)
          .map(capitalize)

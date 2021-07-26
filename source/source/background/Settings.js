@@ -49,7 +49,9 @@
 
    load().then((data = {}) => {
 
+      data['advanced_mode'] ??= true;
       data['search.automatic_suggestions'] ??= true;
+      data['search.rating'] ??= null;
 
       settings = new Map(Object.entries(data));
 

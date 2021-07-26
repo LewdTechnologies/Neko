@@ -1,14 +1,15 @@
 {
 	"name": "Neko",
 	"short_name": "猫",
-	"version": "2.0.4",
-	"version_name": "CrackJack",
+	"version": "2.0.5",
+	"version_name": "SockKeeper",
 	"author": "LewdTechnologies",
 
 	"description": "Neko redesigns E621's interface.",
 	"homepage_url": "https://github.com/LewdTechnologies/Neko",
 
 	"permissions": [
+
 		"background",
 		"activeTab",
 		"storage",
@@ -20,11 +21,13 @@
 		"https://e621.net/*",
 		"https://ads.dragonfru.it/*",
 		"https://mc.yandex.ru/*"
+
 	],
 
 	"background": {
 		"persistent": true,
 		"scripts": [
+
 			"source/library/Functions.js",
 			"source/library/Debug.js",
 			"source/library/Logger.js",
@@ -43,6 +46,7 @@
 			"source/background/extractors/Tag.js",
 
 			"source/Background.js"
+
 		]
 	},
 
@@ -60,18 +64,28 @@
 		"run_at": "document_start",
 		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
 		"js": [
+
 			"source/content/templates/Posts.js",
 			"source/content/utils/Settings.js",
 			"source/content/elements/Search.js",
 			"source/content/elements/SearchSuggestion.js",
 			"source/content/elements/SearchOptions.js",
+			"source/content/elements/SearchRating.js",
 			"source/content/mechanics/TagManager.js",
+			"source/content/mechanics/Advanced.js",
 			"source/library/TagName.js"
+
 		]
 	},{
 		"run_at": "document_start",
 		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
 		"js": [
+
+			"source/library/overrides/Node.js",
+			"source/library/overrides/Element.js",
+			"source/library/overrides/String.js",
+			"source/library/overrides/EventTarget.js",
+			"source/library/Readify.js",
 			"source/library/Functions.js",
 			"source/content/Template.js",
 			"source/library/Debug.js",
@@ -80,6 +94,7 @@
 			"source/content/Page.js",
 			"source/content/User.js",
 			"source/library/Manifest.js"
+
 		],
 		"css": [
 			"resource/css/Hexagons.css",
@@ -88,6 +103,9 @@
 	},{
 		"run_at": "document_end",
 		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
-		"js": [ "source/content/PageFiller.js" ]
+		"js": [
+			"source/content/PageFiller.js"
+
+		]
 	}]
 }

@@ -7,16 +7,101 @@
 */
 
 
-middle > .hasTags {
+/*
+      SEARCH PRESETS
+*/
 
-   border-top-right-radius: 24px;
-   border-bottom-right-radius: 24px;
+search > presets {
+
+   width: 100%;
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: center;
+
+   gap: 5px;
+
+   padding-left: 38px;
 
 }
 
-middle > .hasSuggestions {
+search > presets > rating {
 
-   border-bottom-left-radius: 0;
+   display: flex;
+   flex-wrap: nowrap;
+   flex-direction: row;
+   align-content: center;
+   justify-content: center;
+   align-items: center;
+
+   gap: 4px;
+
+}
+
+search > presets > rating > * {
+
+   border: 1px dashed transparent;
+   border-radius: 16px;
+   cursor: pointer;
+   background-color: #00000029;
+
+}
+
+search > presets > rating img {
+
+   width: 42px;
+   height: auto;
+   pointer-events: none;
+
+}
+
+
+/*
+      TEMPORARY RATING SELECTED
+*/
+
+presets > rating.safe > safe,
+presets > rating.explicit > explicit,
+presets > rating.questionable > questionable {
+
+   background-color: white;
+
+}
+
+presets > rating.safe > safe > img,
+presets > rating.explicit > explicit > img,
+presets > rating.questionable > questionable > img {
+
+   filter: invert(1);
+
+}
+
+
+/*
+      DEFAULT RATING SELECTED
+*/
+
+presets > rating.default_safe > safe,
+presets > rating.default_explicit > explicit,
+presets > rating.default_questionable > questionable {
+
+   border-color: white;
+
+}
+
+
+/*
+      DEFAULT & TEMPORARY DEFAULT RATING SELECTED
+*/
+
+presets > rating.safe.default_safe > safe,
+presets > rating.explicit.default_explicit > explicit,
+presets > rating.questionable.default_questionable > questionable {
+
+   border-color: var(--font-blue);
 
 }
 
@@ -25,7 +110,7 @@ middle > .hasSuggestions {
       SEARCH QUICK SETTINGS
 */
 
-middle > search > options {
+search > primary > bar > options {
 
    position: absolute;
    height: 39px;
@@ -46,10 +131,41 @@ middle > search > options {
 
 }
 
-middle > search > options > setting {
+search > primary > bar > options > setting {
 
    font-weight: bold;
    color: var(--font-white);
    cursor: pointer;
+
+}
+
+search.hasSuggestions:not(.hasAdvanced) {
+
+   border-bottom-left-radius: 0;
+
+}
+
+search.hasSuggestions > primary > bar {
+
+   border-bottom-left-radius: 0;
+
+}
+
+search.hasTags:not(.hasAdvanced) {
+
+   border-top-right-radius: 24px;
+
+}
+
+search.hasTags {
+
+   border-bottom-right-radius: 24px;
+
+}
+
+search.hasTags > primary > bar {
+
+   border-top-right-radius: 24px;
+   border-bottom-right-radius: 24px;
 
 }

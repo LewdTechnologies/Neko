@@ -11,7 +11,7 @@
 
    window.Search ??= {};
 
-   let search , input , tags;
+   let bar , search , input , tags;
    let timeout;
 
 
@@ -40,29 +40,33 @@
 
       const query = [...tags.children]
          .map((element) => element.dataset)
-         .map((data) => data.id)
+         .map((data) => data.id);
+
+      const { current } = SearchRating;
+
+      if(current)
+         query.push(`rating:${ current }`);
+
+      const encoded = query
          .map(encodeURIComponent)
          .join('+');
 
-      return toSearch(query);
+      return toSearch(encoded);
    };
-
-   const capitalize = (string) =>
-      (string[0]?.toUpperCase() ?? '') + string.substring(1);
 
    const refactorInput = (string) => string
       .split(/ +/)
-      .map(capitalize)
+      .map((string) => string.capitalize())
       .join(' ');
 
    const tagFromName = (tagName) => tagName
       .trim()
-      .replace(/ +/,'_')
-      .replace(/_+/,'_')
+      .replaceAll(/ +/g,'_')
+      .replaceAll(/_+/g,'_')
       .toLowerCase();
 
    const append = (char) => {
-      changeTo(input.value + char);
+
       delete input.dataset.tag;
       delete input.dataset.id;
 
@@ -74,10 +78,11 @@
             suggest();
          },500);
       }
+
    }
 
    const backtrack = () => {
-      changeTo(input.value.slice(0,-1));
+
       delete input.dataset.tag;
       delete input.dataset.id;
 
@@ -89,7 +94,42 @@
             suggest();
          },500);
       }
+
    }
+
+
+   /*
+         CREATE TAG LIST ITEM
+   */
+
+   const createTag = (id,name) => {
+
+      const container = create('tag');
+
+      container.dataset.id = id;
+      container.innerText = name;
+
+      container.addEventListener('click',(event) => {
+
+         event.preventDefault();
+         event.stopImmediatePropagation();
+
+         container.remove();
+
+         if(!tags.children.length)
+            search.classList.remove('hasTags');
+
+      });
+
+      tags.appendChild(container);
+      search.classList.add('hasTags');
+
+   };
+
+
+   /*
+         PUSH TAG ONTO TAG LIST
+   */
 
    const pushTag = async () => {
 
@@ -98,8 +138,9 @@
       const tag = input.value.trim();
 
       const tagid = tagFromName(tag);
+      const { dataset } = input;
 
-      const valid = await TagManager.isValid(input.dataset.tag ?? tagid);
+      const valid = await TagManager.isValid(dataset.tag ?? tagid);
 
       if(!valid)
          return;
@@ -110,19 +151,21 @@
          return;
 
 
-      const container = create('tag');
+      const
+         id = dataset.tag ?? tagid,
+         name = TagName.from(dataset.tag ?? tagid);
 
-      container.dataset.id = input.dataset.tag ?? tagid;
-      container.innerText = TagName.from(input.dataset.tag ?? tagid);
+      createTag(id,name);
 
-      delete input.dataset.tag;
-      delete input.dataset.id;
-
-      tags.appendChild(container);
-
-      search.classList.add('hasTags');
+      delete dataset.tag;
+      delete dataset.id;
 
    };
+
+
+   /*
+         REMOVE ALL TAGS
+   */
 
    const clearTags = () => {
 
@@ -133,6 +176,11 @@
       search.classList.remove('hasTags');
 
    };
+
+
+   /*
+         SUGGEST TAGS FOR INPUT
+   */
 
    const suggest = () => {
 
@@ -146,6 +194,20 @@
    };
 
 
+   const keys = {
+      'Escape': [ true , () => SearchSuggestion.hide() ],
+      'Backspace': [ false , backtrack ],
+      'Tab': [ true , pushTag ],
+      'Delete': [ false , ({ shiftKey }) =>
+         shiftKey && clearTags()],
+      'Enter': [ true , () =>
+         buildQuery()
+         .then(redirectTo)],
+      'ControlLeft': [ false , () =>
+         Settings.not('search.automatic_suggestions') && suggest()],
+      'ControlRight': [ false , () =>
+         Settings.not('search.automatic_suggestions') && suggest()]
+   };
 
 
    /*
@@ -176,18 +238,31 @@
    Search.init = () => {
 
       search = select('search');
-      tags = select('search > tags');
+      bar = select('search > primary > bar');
+      tags = select('search > primary > bar > tags');
+      input = select('search > primary > bar > input');
 
-      input = create('input');
-      input.setAttribute('spellcheck',false);
-      search.appendChild(input);
-
-      search.onclick = () =>
+      bar.onclick = () =>
          input.focus();
 
       onKey(window,handleFocus);
-      onKey(search,handleInput);
+      onKey(bar,handleInput);
 
+      const settingsbutton = select('search > primary > settings > img');
+      settingsbutton.addEventListener('click',(e) => {
+
+         e.preventDefault();
+         e.stopImmediatePropagation();
+
+         SearchOptions.toggle();
+
+      });
+
+      Page.tags.forEach(([ tag , negative ]) => {
+
+         createTag(tag,TagName.from(tag));
+
+      });
    };
 
 
@@ -197,45 +272,27 @@
 
    function handleInput(e){
 
-      const action = actionFromInput(e);
+      const { key , code , shiftKey } = e;
 
-      if(!action)
-         return;
+      const consume = () => {
+         e.stopImmediatePropagation();
+         e.preventDefault();
+      };
 
-      e.stopImmediatePropagation();
-      e.preventDefault();
-      action();
+      if(code in keys){
+         const [ cancel , action ] = keys[code];
 
-   };
+         if(cancel)
+            consume();
 
-
-   /*
-         ACTION FROM INPUT
-   */
-
-   function actionFromInput({ key , code , shiftKey }){
-
-      switch(code){
-      case '':
-         return (key === 'Unidentified') ? () => SearchOptions.toggle() : null;
-      case 'Escape':
-         return () => SearchSuggestion.hide();
-      case 'Delete':
-         return shiftKey && (() => clearTags());
-      case 'Enter':
-         return () => buildQuery().then(redirectTo);
-      case 'Tab':
-         return () => pushTag();
-      case 'Backspace':
-         return () => backtrack();
-      case 'ControlLeft':
-      case 'ControlRight':
-         return () => Settings.not('search.automatic_suggestions') && suggest();
-      default:
-         if(/^[A-z0-9_ -]$/.test(key))
-            return () => append(key);
+         action(e);
+      } else
+      if(/^[A-z0-9_ -]$/.test(key)){
+         append(key);
+         setTimeout(() => {
+            input.value = refactorInput(input.value);
+         },10);
       }
-
    };
 
 
@@ -245,13 +302,20 @@
 
    function handleFocus(e){
 
-      if(e.code !== 'Tab')
+      if(!['Tab','F1'].includes(e.code))
          return;
 
       e.stopImmediatePropagation();
       e.preventDefault();
 
-      input.focus();
+      switch(e.code){
+      case 'Tab':
+         input.focus();
+         return;
+      case 'F1':
+         Advanced.toggle();
+         return;
+      }
 
    };
 

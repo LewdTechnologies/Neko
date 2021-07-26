@@ -13,8 +13,7 @@
    const { onMessage } = runtime;
 
 
-   const
-      requests = {};
+   const requests = {};
 
 
    /*
@@ -23,6 +22,9 @@
 
    const on = (request,processor) =>
       requests[request] = processor;
+
+   const openTab = ({ url , active }) => (resolve) =>
+      chrome.tabs.create({ url , active },resolve);
 
 
    /*
@@ -56,6 +58,8 @@
 
    on('user.logout',() =>
       User.logout);
+
+   on('tabs.open',openTab);
 
 })();
 

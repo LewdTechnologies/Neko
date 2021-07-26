@@ -71,6 +71,17 @@ body {
 
 
 /*
+      ADVANCED
+*/
+
+[advance]:not(.show) {
+
+   display: none;
+
+}
+
+
+/*
       NAVIGATION
 */
 
@@ -101,6 +112,12 @@ navigation > * {
 navigation > div {
 
    cursor: pointer;
+
+}
+
+navigation > .logIO {
+
+   transition: .5s;
 
 }
 
@@ -198,6 +215,12 @@ taglist > tag > name {
 
 }
 
+taglist > tag > :is(name,count) {
+
+   transition: .3s;
+
+}
+
 taglist > tag.dummy > name ,
 taglist > tag.dummy > count {
 
@@ -226,10 +249,44 @@ taglist > tag > a {
       SEARCH
 */
 
-middle > search {
+search {
 
    width: calc(100% - 44px);
+
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: flex-start;
+   justify-content: flex-start;
+   align-items: stretch;
+
+   margin: 0 20px;
+
+   border-radius: 11px;
+   background-color: var(--blue-dim);
+   border: 6px solid var(--blue-dim);
+
+   gap: 5px;
+
+}
+
+search > primary {
+
+   width: 100%;
    min-height: 32px;
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: center;
+
+}
+
+search > primary > bar {
+
+   width: -webkit-fill-available;
 
    display: flex;
    flex-direction: row-reverse;
@@ -238,28 +295,12 @@ middle > search {
    justify-content: flex-end;
    align-items: center;
 
-   margin: 0 20px;
-
-   border-radius: 11px;
    background-color: #010b1b;
-   border: 6px solid var(--blue-dim);
+   border-radius: 7px;
 
 }
 
-middle > .hasTags {
-
-   border-top-right-radius: 24px;
-   border-bottom-right-radius: 24px;
-
-}
-
-middle > .hasSuggestions {
-
-   border-bottom-left-radius: 0;
-
-}
-
-middle > search > input {
+search > primary > bar > input {
 
    max-width: 300px;
    min-width: 300px;
@@ -282,14 +323,14 @@ middle > search > input {
 
 }
 
-middle > search > input::selection {
+search > primary > bar > input::selection {
 
    background-color: var(--font-light);
    color: var(--blue-dark);
 
 }
 
-middle > search > tags {
+search > primary > bar > tags {
 
    width: -webkit-fill-available;
 
@@ -305,17 +346,31 @@ middle > search > tags {
 
 }
 
-middle > search > tags > tag {
+search > primary > bar > tags > tag {
 
-   padding: 3px 14px;
+   padding: 1px 12px;
 
-   color: var( --font-white);
+   color: var(--font-white);
    border-radius: 16px;
    background-color: var(--blue-dim);
+   border: 2px solid var(--blue-dim);
+
+   border: 2px solid transparent;
+
+   transition-duration: .2s;
+   cursor: var(--cursor-x);
 
 }
 
-middle > search > suggestions {
+search > primary > bar > tags > tag:hover {
+
+   border-color: #ff83836b;
+   background-color: #844a4a;
+
+}
+
+
+search > primary > bar > suggestions {
 
    position: absolute;
    left: -6px;
@@ -339,7 +394,7 @@ middle > search > suggestions {
 
 }
 
-middle > search > suggestions > tag {
+search > primary > bar > suggestions > tag {
 
    width: -webkit-fill-available;
 
@@ -351,10 +406,29 @@ middle > search > suggestions > tag {
 
 }
 
-middle > search > suggestions > tag:hover {
+search > primary > bar > suggestions > tag:hover {
 
    background-color: var(--blue-dim);
 
+}
+
+search > primary > settings {
+
+   margin-right: 5px;
+
+}
+
+search > primary > settings > img {
+
+   width: 32px;
+   height: auto;
+
+   cursor: pointer;
+
+}
+
+search > primary > settings > img:hover {
+   filter: drop-shadow(0px 0px 4px #000000DD);
 }
 
 
