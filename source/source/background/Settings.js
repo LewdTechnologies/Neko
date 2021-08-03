@@ -49,6 +49,7 @@
 
    load().then((data = {}) => {
 
+      data['minimized_mode'] ??= false;
       data['advanced_mode'] ??= true;
       data['search.automatic_suggestions'] ??= true;
       data['search.rating'] ??= null;

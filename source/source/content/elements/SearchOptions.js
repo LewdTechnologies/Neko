@@ -12,8 +12,9 @@
    window.SearchOptions ??= {};
 
 
-   let menu;
-   let closed = true;
+   let
+      menu,
+      closed = true;
 
    const options = [
       [ 'a' , 'search.automatic_suggestions' , 'Automatic Suggestions' ]
@@ -33,14 +34,14 @@
 
       closed = false;
       Search.hide();
-      menu.style.visibility = 'visible';
+      menu.show();
       menu.focus();
 
    };
 
    const close = () => {
 
-      menu.style.visibility = 'hidden';
+      menu.hide();
       Search.focus();
       closed = true;
 
@@ -80,15 +81,12 @@
 
       }
 
-      menu.addEventListener('keydown',(e) => {
+      menu.addEventListener('keydown',(event) => {
 
 
-         const { key , code } = e;
+         const { key , code } = event;
 
          switch(code){
-         case '':
-            if(key !== 'Unidentified')
-               break;
          case 'Escape':
          case 'Tab':
             close();
@@ -102,8 +100,7 @@
             return;
          }
 
-         e.stopImmediatePropagation();
-         e.preventDefault();
+         event.stop();
 
       });
 

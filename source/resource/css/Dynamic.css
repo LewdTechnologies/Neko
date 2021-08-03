@@ -48,6 +48,8 @@ search > presets > rating > * {
    cursor: pointer;
    background-color: #00000029;
 
+   display: flex;
+
 }
 
 search > presets > rating img {
@@ -167,5 +169,106 @@ search.hasTags > primary > bar {
 
    border-top-right-radius: 24px;
    border-bottom-right-radius: 24px;
+
+}
+
+
+/*
+      SEARCH TAG MODE
+*/
+
+search-tag-modes {
+
+   position: fixed;
+
+   width: 104px;
+   height: 104px;
+
+   transform: translate(-50%,-50%);
+
+   -webkit-mask-image: url('chrome-extension://__MSG_@@extension_id__/resource/icons/2CFVBSS762.png');
+   background-color: var(--blue-dark);
+}
+
+search-tag-modes > border {
+
+   position: absolute;
+
+   left: 0;
+   right: 0;
+   width: 104px;
+   height: 104px;
+
+   -webkit-mask-image: url('chrome-extension://__MSG_@@extension_id__/resource/icons/2CFVBSS769.png');
+   background-color: var(--blue-dim);
+
+}
+
+search-tag-modes > mode {
+
+   position: absolute;
+
+   cursor: pointer;
+
+   background-size: contain;
+
+}
+
+search-tag-modes > mode:hover {
+
+
+   filter: contrast(3);
+
+}
+
+search-tag-modes > mode:nth-of-type(1) {
+
+   left: 4px;
+   top: 50%;
+   width: 27px;
+   height: 26px;
+
+   transform: translateY(-50%);
+
+   background-image: url('chrome-extension://__MSG_@@extension_id__/resource/icons/2CFVBSS765.png');
+
+}
+
+search-tag-modes > mode:nth-of-type(2) {
+
+   left: 50%;
+   top: 5px;
+
+   transform: translateX(-50%);
+
+   background-color: green;
+
+   visibility: hidden;
+
+}
+
+search-tag-modes > mode:nth-of-type(3) {
+
+   right: 5px;
+   top: 50%;
+
+   transform: translateY(-50%);
+
+   background-color: blue;
+
+   visibility: hidden;
+
+}
+
+search-tag-modes > mode:nth-of-type(4) {
+
+   left: 50%;
+   bottom: 5px;
+
+   transform: translateX(-50%);
+
+   background-color: pink;
+
+   visibility: hidden;
 
 }

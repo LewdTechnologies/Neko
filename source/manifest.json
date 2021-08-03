@@ -1,8 +1,8 @@
 {
 	"name": "Neko",
 	"short_name": "猫",
-	"version": "2.0.5",
-	"version_name": "SockKeeper",
+	"version": "2.0.6",
+	"version_name": "PotatoWheel",
 	"author": "LewdTechnologies",
 
 	"description": "Neko redesigns E621's interface.",
@@ -71,8 +71,11 @@
 			"source/content/elements/SearchSuggestion.js",
 			"source/content/elements/SearchOptions.js",
 			"source/content/elements/SearchRating.js",
+			"source/content/elements/SearchRating.js",
+			"source/content/elements/SearchTagMode.js",
 			"source/content/mechanics/TagManager.js",
 			"source/content/mechanics/Advanced.js",
+			"source/content/mechanics/Minimize.js",
 			"source/library/TagName.js"
 
 		]
@@ -85,6 +88,8 @@
 			"source/library/overrides/Element.js",
 			"source/library/overrides/String.js",
 			"source/library/overrides/EventTarget.js",
+			"source/library/overrides/Event.js",
+			"source/library/overrides/HTMLElement.js",
 			"source/library/Readify.js",
 			"source/library/Functions.js",
 			"source/content/Template.js",

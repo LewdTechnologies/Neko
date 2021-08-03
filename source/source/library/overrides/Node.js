@@ -18,10 +18,10 @@
       Node.prototype[name] = func;
 
    const get = (name) => (get) =>
-      Object.defineProperty(Node,name,{ get });
+      Object.defineProperty(Node.prototype,name,{ get });
 
    const set = (name) => (set) =>
-      Object.defineProperty(Node,name,{ set });
+      Object.defineProperty(Node.prototype,name,{ set });
 
 
    /*
@@ -30,6 +30,16 @@
 
    get('nodes')(function(){
       return [ ...this.childNodes ];
+   });
+
+
+   /*
+         CLEAR NODES
+   */
+
+   override('clearNodes')(function(){
+      while(this.lastChild)
+         this.removeChild(this.lastChild);
    });
 
 })();

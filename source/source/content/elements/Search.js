@@ -11,8 +11,7 @@
 
    window.Search ??= {};
 
-   let bar , search , input , tags;
-   let timeout;
+   let bar, tags, input, search, timeout;
 
 
    /*
@@ -39,8 +38,17 @@
       await pushTag();
 
       const query = [...tags.children]
-         .map((element) => element.dataset)
-         .map((data) => data.id);
+         .map(({ dataset , classList }) => ({
+            id: dataset.id,
+            negative: classList.contains('negative')
+         }))
+         .map(({ id , negative }) => {
+
+            negative = (negative) ? '-' : '';
+
+            return negative + id;
+
+         });
 
       const { current } = SearchRating;
 
@@ -102,22 +110,36 @@
          CREATE TAG LIST ITEM
    */
 
-   const createTag = (id,name) => {
+   const createTag = (id,name,negative) => {
 
       const container = create('tag');
 
       container.dataset.id = id;
       container.innerText = name;
 
+      if(negative)
+         container.classList.add('negative');
+
       container.addEventListener('click',(event) => {
 
-         event.preventDefault();
-         event.stopImmediatePropagation();
+         event.stop();
 
-         container.remove();
+         switch(SearchTagMode.mode()){
+         case 'negative':
 
-         if(!tags.children.length)
-            search.classList.remove('hasTags');
+            const { classList } = container;
+
+            classList.toggle('negative');
+
+            break;
+         default:
+
+            container.remove();
+
+            if(!tags.children.length)
+               search.classList.remove('hasTags');
+
+         }
 
       });
 
@@ -169,11 +191,10 @@
 
    const clearTags = () => {
 
-      for(const element of search.children)
-         element.remove();
+      search.clearNodes();
 
       input.value = '';
-      search.classList.remove('hasTags');
+      search.removeClass('hasTags');
 
    };
 
@@ -218,7 +239,7 @@
 
    Search.focus = () => {
 
-      input.style.visibility = 'visible';
+      input.show();
       input.focus();
 
    }
@@ -226,7 +247,7 @@
    Search.hide = () => {
 
       SearchSuggestion.hide();
-      input.style.visibility = 'hidden';
+      input.hide();
 
    };
 
@@ -241,6 +262,15 @@
       bar = select('search > primary > bar');
       tags = select('search > primary > bar > tags');
       input = select('search > primary > bar > input');
+
+      bar.addEventListener('mousedown',(event) => {
+
+         if(event.button === 2)
+            SearchTagMode.open(event);
+         else
+            input.focus()
+
+      });
 
       bar.onclick = () =>
          input.focus();
@@ -260,7 +290,7 @@
 
       Page.tags.forEach(([ tag , negative ]) => {
 
-         createTag(tag,TagName.from(tag));
+         createTag(tag,TagName.from(tag),negative);
 
       });
    };
@@ -270,28 +300,30 @@
          HANDLE INPUT
    */
 
-   function handleInput(e){
+   function handleInput(event){
 
-      const { key , code , shiftKey } = e;
-
-      const consume = () => {
-         e.stopImmediatePropagation();
-         e.preventDefault();
-      };
+      const { key , code , shiftKey } = event;
 
       if(code in keys){
+
          const [ cancel , action ] = keys[code];
 
          if(cancel)
-            consume();
+            event.stop();
 
-         action(e);
-      } else
+         action(event);
+
+         return;
+
+      }
+
       if(/^[A-z0-9_ -]$/.test(key)){
+
          append(key);
          setTimeout(() => {
             input.value = refactorInput(input.value);
          },10);
+
       }
    };
 

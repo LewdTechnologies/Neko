@@ -46,6 +46,7 @@
       });
 
    const toDoc = (template) => `
+      <!DOCTYPE html>
       <html>
          <head>
             <title>Search</title>

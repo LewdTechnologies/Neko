@@ -32,4 +32,23 @@
       return [ ...this.children ];
    });
 
+
+   /*
+         ADD CLASS
+   */
+
+   override('addClass')(function(Class){
+      this.classList.add(Class);
+   });
+
+
+   /*
+         REMOVE CLASS
+   */
+
+   override('removeClass')(function(Class){
+      this.classList.remove(Class);
+   });
+
+
 })();

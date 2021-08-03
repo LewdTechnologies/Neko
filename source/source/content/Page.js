@@ -30,6 +30,8 @@
       })
       .filter(([ tag ]) => {
          switch(tag){
+         case '':
+            return false;
          case 'rating:safe':
          case 'rating:explicit':
          case 'rating:questionable':
