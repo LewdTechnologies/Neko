@@ -1,4 +1,21 @@
 
+### 2.0.6 PotatoWheel
+<br>
+
+**+ Minimize Mode:**<br>
+   Minimize the UI by pressing `F2`
+
+<br>
+
+**+ Search Tag Mode:**<br>
+<br>
+   Change the action of pressing a tag of taglist<br>
+   by holding your right mouse button while hovering<br>
+   over the search bar to open a mode selection menu.<br>
+<br>
+   If no mode is selected the default, remove mode, is used.
+
+
 ### 2.0.5 SockKeeper
 <br>
 
