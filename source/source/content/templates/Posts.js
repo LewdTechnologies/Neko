@@ -237,6 +237,7 @@
       SearchTagMode.init();
       Advanced.init();
       Minimize.init();
+      Pagination.init();
 
 
       window.scrollTo(0,0);
@@ -632,7 +633,21 @@
                      </posts>
                   </middle>
                   <right>
-
+                     <pagination>
+                        <previous>
+                           <svg width='64' height='64' version='1.1' viewBox='0 0 16.933 16.933' xmlns='http://www.w3.org/2000/svg'><path d='m8.4667 16.404v-15.875m-6.35 5.8208 6.35-5.8208 6.35 5.8208' fill='none' stroke='#fff' stroke-dashoffset='10' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='2' stroke-width='1.0583' style='paint-order:markers stroke fill'/></svg>
+                        </previous>
+                        <page></page>
+                        <page></page>
+                        <page></page>
+                        <page></page>
+                        <page></page>
+                        <page></page>
+                        <page></page>
+                        <next>
+                           <svg width='64' height='64' version='1.1' viewBox='0 0 16.933 16.933' xmlns='http://www.w3.org/2000/svg'><path d='m8.4667 0.52917v15.875m6.35-5.8208-6.35 5.8208-6.35-5.8208' fill='none' stroke='#fff' stroke-dashoffset='10' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='2' stroke-width='1.0583' style='paint-order:markers stroke fill'/></svg>
+                        </next>
+                     </pagination>
                   </right>
                </main>
             </content>

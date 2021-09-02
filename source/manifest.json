@@ -1,8 +1,8 @@
 {
 	"name": "Neko",
 	"short_name": "猫",
-	"version": "2.0.6",
-	"version_name": "PotatoWheel",
+	"version": "2.0.7",
+	"version_name": "WillowGlow",
 	"author": "LewdTechnologies",
 
 	"description": "Neko redesigns E621's interface.",
@@ -73,6 +73,7 @@
 			"source/content/elements/SearchRating.js",
 			"source/content/elements/SearchRating.js",
 			"source/content/elements/SearchTagMode.js",
+			"source/content/elements/Pagination.js",
 			"source/content/mechanics/TagManager.js",
 			"source/content/mechanics/Advanced.js",
 			"source/content/mechanics/Minimize.js",
@@ -98,8 +99,8 @@
 			"source/library/FindElement.js",
 			"source/content/Page.js",
 			"source/content/User.js",
+			"source/content/utils/SearchURL.js",
 			"source/library/Manifest.js"
-
 		],
 		"css": [
 			"resource/css/Hexagons.css",

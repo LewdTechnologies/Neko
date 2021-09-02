@@ -200,6 +200,21 @@ middle {
 }
 
 
+right {
+
+   width: fit-content;
+   height: 100%;
+
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: flex-end;
+   justify-content: flex-start;
+   align-items: stretch;
+
+}
+
+
 /*
       TAG LIST
 */
@@ -301,10 +316,11 @@ search {
    align-items: stretch;
 
    margin: 0 20px;
+   padding: 6px;
 
    border-radius: 11px;
    background-color: var(--blue-dim);
-   border: 6px solid var(--blue-dim);
+   background-image: var(--decoration);
 
    gap: 5px;
 
@@ -546,6 +562,91 @@ posts > post > img.dummy {
 
    width: 150px;
    height: 150px;
+
+}
+
+
+/*
+      PAGINATION
+*/
+
+right > pagination {
+
+   width: fit-content;
+   height: fit-content;
+
+   background-color: var(--blue-dim);
+   background-image: var(--decoration);
+
+   padding: 7px;
+   border-radius: 11px;
+   margin-left: 8px;
+   gap: 7px;
+
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: center;
+
+}
+
+right > pagination > * {
+
+   width: 28px;
+   height: 28px;
+
+   border-radius: 25%;
+   box-shadow: #000000c2 0 0 3px;
+   background-color: var(--blue-dim);
+   border: 1px solid transparent;
+
+   cursor: pointer;
+
+}
+
+right > pagination > *:hover {
+
+   filter: brightness(0.7);
+   box-shadow: #ffffff7d 0 0 2px;
+   border-color: #ffffff78;
+
+}
+
+right > pagination > page {
+
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: center;
+   align-items: center;
+
+   font-weight: bold;
+   font-size: 16px
+
+}
+
+right > pagination > page.current {
+
+   color: red;
+
+}
+
+right > pagination > previous > svg {
+
+   width: 20px !important;
+   height: 20px !important;
+   padding: 4px;
+
+}
+
+right > pagination > next > svg {
+
+   width: 20px !important;
+   height: 20px !important;
+   padding: 4px;
 
 }
 

@@ -65,7 +65,9 @@
 
    window.onload = () => {
 
-      console.timeEnd('Page Load');
+      // console.clear();
+
+      // console.timeEnd('Page Load');
 
       const content = html();
 

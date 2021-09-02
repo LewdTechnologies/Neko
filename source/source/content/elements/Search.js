@@ -15,17 +15,20 @@
 
 
    /*
+         REGEX
+   */
+
+   const
+      spaces = / +/g,
+      underscores = /_+/g;
+
+
+   /*
          HELPER
    */
 
    const create = (type) =>
       document.createElement(type);
-
-   const redirectTo = (url) =>
-      window.location.href = url;
-
-   const toSearch = (query) =>
-      `https://e621.net/posts?tags=${ query }`;
 
    const onKey = (element,resolve) =>
       element.addEventListener('keydown',resolve);
@@ -37,29 +40,26 @@
 
       await pushTag();
 
-      const query = [...tags.children]
-         .map(({ dataset , classList }) => ({
-            id: dataset.id,
-            negative: classList.contains('negative')
-         }))
-         .map(({ id , negative }) => {
+      const { children } = tags;
 
-            negative = (negative) ? '-' : '';
+      {
+         const tags = [...children]
+            .map(({ dataset , classList }) => ({
+              negative: classList.contains('negative'),
+              id: dataset.id
+            }));
 
-            return negative + id;
+         const { current } = SearchRating;
 
-         });
+         if(current)
+            tags.push(`rating:${ current }`);
 
-      const { current } = SearchRating;
+         const url = new SearchURL;
 
-      if(current)
-         query.push(`rating:${ current }`);
+         url.tags = tags;
 
-      const encoded = query
-         .map(encodeURIComponent)
-         .join('+');
-
-      return toSearch(encoded);
+         return url;
+      }
    };
 
    const refactorInput = (string) => string
@@ -69,14 +69,16 @@
 
    const tagFromName = (tagName) => tagName
       .trim()
-      .replaceAll(/ +/g,'_')
-      .replaceAll(/_+/g,'_')
+      .replaceAll(spaces,'_')
+      .replaceAll(underscores,'_')
       .toLowerCase();
 
    const append = (char) => {
 
-      delete input.dataset.tag;
-      delete input.dataset.id;
+      const { dataset } = input;
+
+      delete dataset.tag;
+      delete dataset.id;
 
       clearTimeout(timeout);
 
@@ -221,9 +223,7 @@
       'Tab': [ true , pushTag ],
       'Delete': [ false , ({ shiftKey }) =>
          shiftKey && clearTags()],
-      'Enter': [ true , () =>
-         buildQuery()
-         .then(redirectTo)],
+      'Enter': [ true , () => buildQuery().then((url) => url.redirectTo()) ],
       'ControlLeft': [ false , () =>
          Settings.not('search.automatic_suggestions') && suggest()],
       'ControlRight': [ false , () =>

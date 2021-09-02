@@ -37,7 +37,7 @@ search > presets > rating {
    justify-content: center;
    align-items: center;
 
-   gap: 4px;
+   gap: 6px;
 
 }
 
@@ -45,11 +45,17 @@ search > presets > rating > * {
 
    border: 1px dashed transparent;
    border-radius: 16px;
-   cursor: pointer;
    background-color: #00000029;
+   box-shadow: #000000a3 0 0 2px;
+
+   cursor: pointer;
 
    display: flex;
 
+}
+
+search > presets > rating > *:hover {
+   box-shadow: #ffffffe6 0 0 2px;
 }
 
 search > presets > rating img {
