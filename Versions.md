@@ -1,4 +1,13 @@
 
+### 2.0.7 WillowGlow
+<br>
+
+**+ Pagination:**<br>
+   Right click arrows to jump to first / last page
+
+
+---
+
 ### 2.0.6 PotatoWheel
 <br>
 
@@ -15,6 +24,7 @@
 <br>
    If no mode is selected the default, remove mode, is used.
 
+---
 
 ### 2.0.5 SockKeeper
 <br>
