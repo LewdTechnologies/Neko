@@ -1,9 +1,33 @@
 
+### 2.0.8 RavenGoose
+<br>
+
+**+ Downloader:**<br>
+   - Press `F4` to toggle download mode.
+   - In dowload mode, select one or multiple images<br>
+   by pressing and holding `LMB`.
+   - Select multiple times by holding down `CTRL`<br>
+   while pressing `LMB`.<br>
+   (You only need to hold it at the start of the selection)
+   - To queue the selected images simply press the arrow<br>
+   button in the right sidebar, above it, the number of<br>
+   selected files will also be shown.
+   - Images are downloaded in the background<br>
+   via a pinned tab, which will close itself once<br>
+   the process has finished.
+   - As the download process works in the background, you<br>
+   can close any tabs besides the pinned download tab.
+
+**~ Fixes:**<br>
+   Various search menu bugs.
+
+
+
 ### 2.0.7 WillowGlow
 <br>
 
 **+ Pagination:**<br>
-   Right click arrows to jump to first / last page
+   Right click arrows to jump to first / last page.
 
 
 ---
