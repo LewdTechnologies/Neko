@@ -18,7 +18,7 @@
    - As the download process works in the background, you<br>
    can close any tabs besides the pinned download tab.
 
-**~ Fixes:**<br>
+**~** **Fixes:**<br>
    Various search menu bugs.
 
 
