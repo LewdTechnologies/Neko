@@ -37,7 +37,8 @@
 
    SearchSuggestion.show = (string) => {
 
-      if(open && last === string)
+      if(open)
+      if(last === string)
          return SearchSuggestion.hide();
 
       open = true;

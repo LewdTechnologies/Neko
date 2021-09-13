@@ -212,6 +212,8 @@ right {
    justify-content: flex-start;
    align-items: stretch;
 
+   gap: 10px;
+
 }
 
 
@@ -558,6 +560,31 @@ posts > post > img {
 
 }
 
+body.download::before {
+
+   cursor: crosshair;
+
+}
+
+body.download {
+
+   cursor: unset;
+
+}
+
+body.download posts > post {
+
+   cursor: crosshair;
+
+}
+
+body.download posts > post > img {
+
+   cursor: crosshair;
+   transition: none;
+
+}
+
 posts > post > img.dummy {
 
    width: 150px;
@@ -647,6 +674,120 @@ right > pagination > next > svg {
    width: 20px !important;
    height: 20px !important;
    padding: 4px;
+
+}
+
+
+/*
+      DOWNLOAD
+*/
+
+/*
+      PAGINATION
+*/
+
+body.download right > download {
+
+   display: flex;
+
+}
+
+right > download {
+
+   width: fit-content;
+   height: fit-content;
+
+   background-color: var(--blue-dim);
+   background-image: var(--decoration);
+
+   border-radius: 11px;
+   margin-left: 8px;
+   gap: -7px;
+
+   display: none;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: center;
+
+}
+
+right > download > * {
+
+   margin: 7px;
+
+}
+
+right > download > level {
+
+   width: 30px;
+   height: 70px;
+
+   border-radius: 5px;
+   background-color: var(--blue-dark);
+
+   overflow: hidden;
+   filter: drop-shadow(0 0 1px black);
+
+   display: none;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: flex-start;
+   align-items: stretch;
+
+}
+
+right > download > level > * {
+
+   width: 100%;
+
+}
+
+right > download > append {
+
+   width: 28px;
+   height: fit-content;
+
+   border-radius: 6px;
+   box-shadow: #000000c2 0 0 3px;
+   background-color: var(--blue-dim);
+   border: 1px solid transparent;
+
+   cursor: pointer;
+
+   display: none;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-content: center;
+   justify-content: center;
+   align-items: center;
+
+   padding: 5px 0px;
+   gap: 3px;
+
+   user-select: all;
+
+}
+
+right > download > append:hover {
+
+   filter: brightness(0.7);
+   box-shadow: #ffffff7d 0 0 2px;
+   border-color: #ffffff78;
+
+}
+
+right > download > selection {
+
+   position: fixed;
+
+   display: none;
+
+   filter: saturate(1.6);
+   border: 1px solid #FFFFFF66;
+   border-radius: 3px;
 
 }
 

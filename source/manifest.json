@@ -1,8 +1,8 @@
 {
 	"name": "Neko",
 	"short_name": "猫",
-	"version": "2.0.7",
-	"version_name": "WillowGlow",
+	"version": "2.0.8",
+	"version_name": "RavenGoose",
 	"author": "LewdTechnologies",
 
 	"description": "Neko redesigns E621's interface.",
@@ -15,6 +15,7 @@
 		"storage",
 		"tabs",
 		"cookies",
+		"downloads",
 		"webRequest",
       "webRequestBlocking",
 		"https://*.e621.net/*",
@@ -44,6 +45,7 @@
 			"source/background/Extractor.js",
 			"source/background/extractors/Posts.js",
 			"source/background/extractors/Tag.js",
+			"source/background/Download.js",
 
 			"source/Background.js"
 
@@ -53,6 +55,7 @@
 	"web_accessible_resources": [ "resource/*" ],
 
 	"manifest_version": 2,
+	"minimum_chrome_version": "93",
 
 	"icons": {
 		"16":  "resource/icons/neko/16x16.png",
@@ -67,6 +70,7 @@
 
 			"source/content/templates/Posts.js",
 			"source/content/utils/Settings.js",
+
 			"source/content/elements/Search.js",
 			"source/content/elements/SearchSuggestion.js",
 			"source/content/elements/SearchOptions.js",
@@ -74,6 +78,8 @@
 			"source/content/elements/SearchRating.js",
 			"source/content/elements/SearchTagMode.js",
 			"source/content/elements/Pagination.js",
+			"source/content/elements/Download.js",
+
 			"source/content/mechanics/TagManager.js",
 			"source/content/mechanics/Advanced.js",
 			"source/content/mechanics/Minimize.js",
@@ -88,15 +94,18 @@
 			"source/library/overrides/Node.js",
 			"source/library/overrides/Element.js",
 			"source/library/overrides/String.js",
+			"source/library/overrides/Array.js",
 			"source/library/overrides/EventTarget.js",
 			"source/library/overrides/Event.js",
 			"source/library/overrides/HTMLElement.js",
+
 			"source/library/Readify.js",
 			"source/library/Functions.js",
 			"source/content/Template.js",
 			"source/library/Debug.js",
 			"source/library/Logger.js",
 			"source/library/FindElement.js",
+			"source/library/structs/SearchTag.js",
 			"source/content/Page.js",
 			"source/content/User.js",
 			"source/content/utils/SearchURL.js",

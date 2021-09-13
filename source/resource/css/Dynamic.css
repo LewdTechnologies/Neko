@@ -145,6 +145,18 @@ search > primary > bar > options > setting {
    color: var(--font-white);
    cursor: pointer;
 
+   padding: 1px 10px;
+   background-color: var(--blue-dim);
+   border-radius: 7px;
+
+   border: 1px solid transparent;
+
+}
+
+search > primary > bar > options > setting:hover {
+
+   border-color: #FFFFFF44;
+
 }
 
 search.hasSuggestions:not(.hasAdvanced) {

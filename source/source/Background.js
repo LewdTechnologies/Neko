@@ -36,16 +36,23 @@
       const { action } = args;
 
       if(!action)
-         return;
+         return false;
 
 
       const tabId = sender?.tab?.id;
 
       args = { tabId , ...(args.data ?? {}) };
 
-      requests[action]?.(args)(resolve);
+      const result = requests[action]?.(args);
 
-      return true;
+      if(typeof result === 'function'){
+         result(resolve);
+         return true;
+      }
+
+      resolve();
+
+      return false;
    });
 
 
@@ -60,6 +67,8 @@
       User.logout);
 
    on('tabs.open',openTab);
+
+   on('download.append',Download.append);
 
 })();
 

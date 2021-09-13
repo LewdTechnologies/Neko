@@ -14,7 +14,7 @@
    let pages,pagination;
 
 
-   const page = parseInt(new URL(window.location).searchParams.get('page')) ?? 1;
+   const page = parseInt(new URL(window.location).searchParams.get('page') ?? 1) ?? 1;
 
 
    /*
@@ -23,14 +23,11 @@
 
    const goto = (page) => {
 
-      const url = SearchURL.fromPage();
+      const url = Search.Url.fromPage();
       url.page = page;
       url.redirectTo();
 
    };
-
-
-
 
 
    /*
@@ -78,7 +75,7 @@
 
          button.addEventListener('click',() => {
 
-            const url = SearchURL.fromPage();
+            const url = Search.Url.fromPage();
             url.page = position;
             url.redirectTo();
 

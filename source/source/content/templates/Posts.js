@@ -169,14 +169,17 @@
             .slice(length)
             .forEach((element) => element.remove());
 
-
          posts
          .filter((_,index) => index in children)
          .forEach((post,index) => {
 
-            const
-               element = children[index],
-               [ image ] = element.children;
+            const element = children[index];
+
+            element.dataset.id = post.id;
+            element.dataset.source = post.urls.file;
+
+
+            const [ image ] = element.children;
 
             const { classList } = image;
 
@@ -184,13 +187,25 @@
 
             image.preventDefaultAction('contextmenu');
 
-            image.preventDefaultAction('mousedown');
+            image.addEventListener('mousedown',(event) => {
 
-            image.addEventListener('mouseup',(event) => {
+               if(Download.isActive())
+                  return;
 
                event.stop();
 
-               ((event.button === 0) ? gotoPost : openPost)(post.id);
+            });
+
+            image.addEventListener('mouseup',(event) => {
+
+               if(Download.isActive())
+                  return;
+
+               event.stop();
+
+               ((event.button === 0)
+               ? gotoPost
+               : openPost)(post.id);
 
              });
 
@@ -230,14 +245,11 @@
          event.stop();
       });
 
-      Search.init();
-      SearchSuggestion.init();
-      SearchOptions.init();
-      SearchRating.init();
-      SearchTagMode.init();
-      Advanced.init();
-      Minimize.init();
-      Pagination.init();
+
+      for(const Mechanic of [
+         Search , SearchSuggestion , SearchOptions , SearchRating ,
+         SearchTagMode , Advanced , Minimize , Pagination , Download
+      ]) Mechanic.init();
 
 
       window.scrollTo(0,0);
@@ -247,9 +259,15 @@
          .scrollTo(0,event.target.scrollTop));
 
       window.addEventListener('keydown',(event) => {
-         if(event.code === 'F2'){
+         switch(event.code){
+         case 'F2':
             event.stop();
             Minimize.toggle();
+            return;
+         case 'F4':
+            event.stop();
+            Download.toggle();
+            return;
          }
       });
    };
@@ -648,6 +666,16 @@
                            <svg width='64' height='64' version='1.1' viewBox='0 0 16.933 16.933' xmlns='http://www.w3.org/2000/svg'><path d='m8.4667 0.52917v15.875m6.35-5.8208-6.35 5.8208-6.35-5.8208' fill='none' stroke='#fff' stroke-dashoffset='10' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='2' stroke-width='1.0583' style='paint-order:markers stroke fill'/></svg>
                         </next>
                      </pagination>
+                     <download>
+                        <level>
+                           <indicator></indicator>
+                        </level>
+                        <append>
+                           <count>0</count>
+                           <symbol>▼</symbol>
+                        </append>
+                        <selection></selection>
+                     </download>
                   </right>
                </main>
             </content>

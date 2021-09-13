@@ -65,6 +65,9 @@
 
    onConnect.addListener((port) => {
 
+      if(port.name !== 'settings')
+         return;
+
       recipients.add(port);
 
       port.postMessage([...settings],() => {});

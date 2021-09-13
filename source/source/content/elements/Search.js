@@ -11,7 +11,7 @@
 
    window.Search ??= {};
 
-   let bar, tags, input, search, timeout;
+   let bar,tags,input,search,timeout;
 
 
    /*
@@ -42,30 +42,17 @@
 
       const { children } = tags;
 
-      {
-         const tags = [...children]
-            .map(({ dataset , classList }) => ({
-              negative: classList.contains('negative'),
-              id: dataset.id
-            }));
-
-         const { current } = SearchRating;
-
-         if(current)
-            tags.push(`rating:${ current }`);
-
-         const url = new SearchURL;
-
-         url.tags = tags;
-
-         return url;
-      }
+      return new Search.Url({
+         rating: SearchRating.current,
+         tags: [...tags.children].map(({ dataset , classList }) =>
+            new Search.Tag(dataset.id,classList.contains('negative')))
+      });
    };
 
    const refactorInput = (string) => string
-      .split(/ +/)
-      .map((string) => string.capitalize())
-      .join(' ');
+      .toWords()
+      .capitalize()
+      .toSentence();
 
    const tagFromName = (tagName) => tagName
       .trim()
@@ -82,28 +69,22 @@
 
       clearTimeout(timeout);
 
-      if(Settings.is('search.automatic_suggestions')){
-
-         timeout = setTimeout(() => {
-            suggest();
-         },500);
-      }
+      if(Settings.is('search.automatic_suggestions'))
+         timeout = Timeout(500,suggestTags);
 
    }
 
    const backtrack = () => {
 
-      delete input.dataset.tag;
-      delete input.dataset.id;
+      const { dataset } = input;
+
+      delete dataset.tag;
+      delete dataset.id;
 
       clearTimeout(timeout);
 
-      if(Settings.is('search.automatic_suggestions')){
-
-         timeout = setTimeout(() => {
-            suggest();
-         },500);
-      }
+      if(Settings.is('search.automatic_suggestions'))
+         timeout = Timeout(500,suggestTags);
 
    }
 
@@ -160,8 +141,8 @@
       SearchSuggestion.hide();
 
       const tag = input.value.trim();
-
       const tagid = tagFromName(tag);
+
       const { dataset } = input;
 
       const valid = await TagManager.isValid(dataset.tag ?? tagid);
@@ -205,7 +186,7 @@
          SUGGEST TAGS FOR INPUT
    */
 
-   const suggest = () => {
+   const suggestTags = () => {
 
       const string = tagFromName(input.value);
 
@@ -225,9 +206,9 @@
          shiftKey && clearTags()],
       'Enter': [ true , () => buildQuery().then((url) => url.redirectTo()) ],
       'ControlLeft': [ false , () =>
-         Settings.not('search.automatic_suggestions') && suggest()],
+         Settings.not('search.automatic_suggestions') && suggestTags()],
       'ControlRight': [ false , () =>
-         Settings.not('search.automatic_suggestions') && suggest()]
+         Settings.not('search.automatic_suggestions') && suggestTags()]
    };
 
 
@@ -281,9 +262,7 @@
       const settingsbutton = select('search > primary > settings > img');
       settingsbutton.addEventListener('click',(e) => {
 
-         e.preventDefault();
-         e.stopImmediatePropagation();
-
+         e.preventDefaultAction();
          SearchOptions.toggle();
 
       });
