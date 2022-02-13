@@ -12,13 +12,19 @@
    window.Page ??= {};
 
 
-   const { search } = window.location;
+   const { search , host } = window.location;
 
    const parameter = new URLSearchParams(search);
 
    Page.rating = null;
 
    Page.page = Number(parameter.get('page') ?? 0);
+
+   Page.host = host.split('.')[0];
+
+   Page.isNSFW = Page.host === 'e621';
+
+   Page.url = `https://${ Page.host }.net/`;
 
    Page.tags = (parameter.get('tags') ?? '')
       .toLowerCase()

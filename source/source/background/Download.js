@@ -129,12 +129,16 @@
 
    };
 
-   const nextItem = () => {
+   const nextItem = (delay = true) => {
 
       console.log(`Items left: ${ queue.length }`);
 
       if(queue.length < 1)
          return stopQueue();
+
+      if(delay)
+         return setTimeout(() => nextItem(false),waitTime());
+
 
       item = queue.shift();
 
@@ -191,11 +195,10 @@
 
          port.onDisconnect.addListener((port) => {
 
-            recipients.delete(port.sender.tab.tabId);
+            const { tabId } = port.sender.tab;
+            recipients.delete(tabId);
 
          });
-
-         recipients.set(port.sender.tab.tabId,port);
 
          return;
       case 'downloader':
@@ -213,15 +216,12 @@
 
                console.error(msg.error);
                updateStatus([{ name , status: 'failed' }]);
-               setTimeout(() => {
-                  nextItem();
-               },waitTime());
+               nextItem();
 
                return;
             case 'complete':
 
                updateStatus([{ name , status: 'downloading' }]);
-
 
                return;
             default:
@@ -234,7 +234,7 @@
          state = 'ready';
 
          if(newInstance)
-            nextItem();
+            nextItem(false);
 
          return;
       }
@@ -336,10 +336,7 @@
             updateStatus([{ name: item.name , status: 'complete' }]);
             completed.add(name);
             item = null;
-
-            setTimeout(() => {
-               nextItem();
-            },waitTime());
+            nextItem();
          }
 
       } else {

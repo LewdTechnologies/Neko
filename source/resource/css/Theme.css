@@ -268,9 +268,34 @@ taglist > tag > name {
    flex-wrap: nowrap;
    align-content: center;
    justify-content: flex-start;
-   align-items: center;
+   align-items: center
 
 }
+
+taglist > tag > name > span {
+
+   font-weight: bold;
+
+}
+
+taglist > tag[data-category='unknown'] > name > span {
+   color: var(--category-unknown); }
+taglist > tag[data-category='general'] > name > span {
+   color: var(--category-general); }
+taglist > tag[data-category='artist'] > name > span {
+   color: var(--category-artist); }
+taglist > tag[data-category='copyright'] > name > span {
+   color: var(--category-copyright); }
+taglist > tag[data-category='character'] > name > span {
+   color: var(--category-character); }
+taglist > tag[data-category='species'] > name > span {
+   color: var(--category-species); }
+taglist > tag[data-category='invalid'] > name > span {
+   color: var(--category-invalid); }
+taglist > tag[data-category='meta'] > name > span {
+   color: var(--category-meta); }
+taglist > tag[data-category='lore'] > name > span {
+   color: var(--category-lore); }
 
 taglist > tag > :is(name,count) {
 
@@ -324,7 +349,7 @@ search {
    background-color: var(--blue-dim);
    background-image: var(--decoration);
 
-   gap: 5px;
+   /* gap: 5px; */
 
 }
 
@@ -562,7 +587,7 @@ posts > post > img {
 
 body.download::before {
 
-   cursor: crosshair;
+   cursor: var(--selector-cursor);
 
 }
 
@@ -574,13 +599,13 @@ body.download {
 
 body.download posts > post {
 
-   cursor: crosshair;
+   cursor: var(--selector-cursor);
 
 }
 
 body.download posts > post > img {
 
-   cursor: crosshair;
+   cursor: var(--selector-cursor);
    transition: none;
 
 }

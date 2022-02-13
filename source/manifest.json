@@ -1,7 +1,7 @@
 {
 	"name": "Neko",
 	"short_name": "猫",
-	"version": "2.0.8",
+	"version": "2.0.9",
 	"version_name": "RavenGoose",
 	"author": "LewdTechnologies",
 
@@ -20,10 +20,13 @@
       "webRequestBlocking",
 		"https://*.e621.net/*",
 		"https://e621.net/*",
+		"https://*.e926.net/*",
+		"https://e926.net/*",
 		"https://ads.dragonfru.it/*",
 		"https://mc.yandex.ru/*"
 
 	],
+
 
 	"background": {
 		"persistent": true,
@@ -45,6 +48,7 @@
 			"source/background/Extractor.js",
 			"source/background/extractors/Posts.js",
 			"source/background/extractors/Tag.js",
+			"source/background/extractors/Category.js",
 			"source/background/Download.js",
 
 			"source/Background.js"
@@ -52,10 +56,11 @@
 		]
 	},
 
+
 	"web_accessible_resources": [ "resource/*" ],
 
 	"manifest_version": 2,
-	"minimum_chrome_version": "93",
+	"minimum_chrome_version": "90",
 
 	"icons": {
 		"16":  "resource/icons/neko/16x16.png",
@@ -63,32 +68,13 @@
 		"64":  "resource/icons/neko/64x64.png"
 	},
 
+
 	"content_scripts": [{
 		"run_at": "document_start",
-		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
-		"js": [
-
-			"source/content/templates/Posts.js",
-			"source/content/utils/Settings.js",
-
-			"source/content/elements/Search.js",
-			"source/content/elements/SearchSuggestion.js",
-			"source/content/elements/SearchOptions.js",
-			"source/content/elements/SearchRating.js",
-			"source/content/elements/SearchRating.js",
-			"source/content/elements/SearchTagMode.js",
-			"source/content/elements/Pagination.js",
-			"source/content/elements/Download.js",
-
-			"source/content/mechanics/TagManager.js",
-			"source/content/mechanics/Advanced.js",
-			"source/content/mechanics/Minimize.js",
-			"source/library/TagName.js"
-
-		]
-	},{
-		"run_at": "document_start",
-		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
+		"matches": [
+			"https://e621.net/posts" , "https://e621.net/posts?*",
+			"https://e926.net/posts" , "https://e926.net/posts?*"
+		],
 		"js": [
 
 			"source/library/overrides/Node.js",
@@ -110,17 +96,48 @@
 			"source/content/User.js",
 			"source/content/utils/SearchURL.js",
 			"source/library/Manifest.js"
+
 		],
 		"css": [
 			"resource/css/Hexagons.css",
 			"resource/css/Theme.css"
 		]
 	},{
+		"run_at": "document_start",
+		"matches": [
+			"https://e621.net/posts" , "https://e621.net/posts?*",
+			"https://e926.net/posts" , "https://e926.net/posts?*"
+		],
+		"js": [
+
+			"source/content/templates/generator/Posts.js",
+			"source/content/templates/furnisher/Posts.js",
+
+			"source/content/utils/Settings.js",
+
+			"source/content/elements/Search.js",
+			"source/content/elements/SearchSuggestion.js",
+			"source/content/elements/SearchOptions.js",
+			"source/content/elements/SearchRating.js",
+			"source/content/elements/SearchPresets.js",
+			"source/content/elements/SearchTagMode.js",
+			"source/content/elements/Pagination.js",
+			"source/content/elements/Download.js",
+
+			"source/content/mechanics/TagManager.js",
+			"source/content/mechanics/Advanced.js",
+			"source/content/mechanics/Minimize.js",
+			"source/library/TagName.js"
+
+		]
+	},{
 		"run_at": "document_end",
-		"matches": [ "https://e621.net/posts" , "https://e621.net/posts?*" ],
+		"matches": [
+			"https://e621.net/posts" , "https://e621.net/posts?*",
+			"https://e926.net/posts" , "https://e926.net/posts?*"
+		],
 		"js": [
 			"source/content/PageFiller.js"
-
 		]
 	}]
 }

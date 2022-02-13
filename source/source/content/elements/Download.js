@@ -12,20 +12,36 @@
    window.Download ??= {};
 
    let indicator,selection,append,filecount,posts;
-   let isActive = false;
 
+   let selectionMode = true;
+   let isActive = false;
    let files = [];
 
    let
       on_end_selection,
       on_move_selection,
-      on_start_selection;
+      on_start_selection,
+      on_selection_action;
 
    let statuses = new Map;
 
 
    const { round } = Math;
    const { sendMessage } = chrome.runtime;
+
+
+   const indicatorColors = new Map(Object.entries({
+      waiting: 'var(--font-light)',
+      inProgress: '#d8a549',
+      downloading: 'purple',
+      failed: '#ca3030',
+      complete: '#1a881a'
+   }));
+
+
+   const indicatorColor = (status) =>
+      indicatorColors.get(status) ?? 'black';
+
 
 
    /*
@@ -35,6 +51,11 @@
    const updateStatuses = () => {
 
       let ordered = new Map;
+
+
+      /*
+            SYNCRONIZE STATUS INDICATOR
+      */
 
       (() => {
 
@@ -50,52 +71,44 @@
 
       })();
 
-      for(const [ name , status ] of statuses.entries()){
 
-         if(!ordered.has(name)){
+      /*
+            UPDATE INDICATORS
+      */
 
-            const element = document.createElement('file');
-            element.dataset.name = name;
-            indicator.appendChild(element);
-            ordered.set(name,element);
+      (() => {
+
+         for(const [ name , status ] of statuses.entries()){
+
+            if(!ordered.has(name)){
+
+               const element = document.createElement('file');
+               element.dataset.name = name;
+               indicator.appendChild(element);
+               ordered.set(name,element);
+
+            }
+
+
+            const { style } = ordered.get(name);;
+
+            style.backgroundColor = indicatorColor(status);;
+            style.height = `${ 70 / statuses.size }px`;
 
          }
 
-         const element = ordered.get(name);
+      })();
 
-         let color = 'black';
 
-         switch(status){
-         case 'waiting':
-            color = 'var(--font-light)';
-            break;
-         case 'inProgress':
-            color = '#d8a549';
-            break;
-         case 'downloading':
-            color = 'purple';
-            break;
-         case 'failed':
-            color = '#ca3030';
-            break;
-         case 'complete':
-            color = '#1a881a';
-            break;
-         }
-
-         const { style } = element;
-
-         style.backgroundColor = color;
-         style.height = `${ 70 / statuses.size }px`;
-
-      }
-
+      /*
+            HIDE IF NOT RELEVANT
+      */
 
       (() => {
 
          const { style , children } = indicator;
 
-         style.display = (children.length < 1) ? 'none' : 'flex';
+         style.display = [...children].isEmpty() ? 'none' : 'flex';
 
       })();
 
@@ -122,6 +135,18 @@
       files = [];
       resetMarkings();
       append.style.display = 'none';
+
+   };
+
+   const updateSelectionMode = () => {
+
+      const { style } = document.documentElement;
+
+      const cursor = selectionMode
+         ? 'var(--cursor-selector-green)'
+         : 'var(--cursor-selector-red)' ;
+
+      style.setProperty('--selector-cursor',cursor);
 
    };
 
@@ -154,8 +179,8 @@
 
          const [ x , y , width , height ] = normalizedBounds();
 
-         style.left = `${ x }px`;
          style.top = `${ y }px`;
+         style.left = `${ x }px`;
          style.width = `${ width }px`;
          style.height = `${ height }px`;
 
@@ -204,7 +229,19 @@
          if(selected.length > 0)
             append.style.display = 'flex';
 
-         files = files.concat(selected);
+
+         if(selectionMode){
+            files = files.concat(selected);
+         } else {
+            files = files.filter((file) => {
+               for(const post of selected)
+                  if(post.name === file.name)
+                     return false;
+
+               return true;
+            });
+         }
+
 
          const unique = new Map;
 
@@ -214,8 +251,31 @@
          files = [...unique.values()];
 
          filecount.innerText = files.length;
+
       };
 
+
+      /*
+            SELECTION ACTION
+      */
+
+      on_selection_action = (event) => {
+
+         const { button } = event;
+
+         switch(button){
+         case 0:
+            return on_start_selection(event);
+         case 2:
+
+            selectionMode = ! selectionMode;
+
+            updateSelectionMode();
+
+            return;
+         }
+
+      };
 
 
       /*
@@ -224,7 +284,7 @@
 
       on_start_selection = (event) => {
 
-         const { pageX , pageY , ctrlKey } = event;
+         const { pageX , pageY , button } = event;
 
          isSelecting = true;
          append.style.display = 'none';
@@ -233,9 +293,6 @@
          [ x , y ] = [ pageX , pageY ];
 
          [ width , height ] = [ 0 , 0 ];
-
-         if(!ctrlKey)
-            files = [];
 
 
          resetMarkings();
@@ -314,9 +371,11 @@
 
          body.classList[(state) ? 'add' : 'remove']('download');
 
+         updateSelectionMode();
+
          if(state){
 
-            posts.addEventListener('mousedown',on_start_selection);
+            posts.addEventListener('mousedown',on_selection_action);
 
          } else {
 

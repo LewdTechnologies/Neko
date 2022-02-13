@@ -11,8 +11,6 @@
 
    window.TagManager ??= {};
 
-   const endpoint = `https://e621.net/tags/autocomplete.json`;
-
    const
       searches = new Map,
       valid = new Set,
@@ -23,9 +21,12 @@
          HELPER
    */
 
+   const endpoint = () =>
+      `${ Page.url }tags/autocomplete.json`;
+
    const requestTags = async (term) => {
 
-      const response = await fetch(`${ endpoint }?search[name_matches]=${ term }&expiry=7`);
+      const response = await fetch(`${ endpoint() }?search[name_matches]=${ term }&expiry=7`);
 
       const json = await response.json();
 

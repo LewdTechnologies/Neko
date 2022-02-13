@@ -28,7 +28,7 @@
          if(!categoryId)
             return warn(`Missing category Id`,element);
 
-         const category = Number(categoryId);
+         const category = Extractor.idToCategory(Number(categoryId));
 
 
          const count = Number(countElement.dataset?.count);

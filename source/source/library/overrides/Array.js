@@ -56,4 +56,14 @@
       .map(toEncodedURIComponent);
    });
 
+
+   /*
+         IS EMPTY
+   */
+
+   override('isEmpty',function(){
+      return this
+      .length < 1;
+   });
+
 })();

@@ -262,7 +262,7 @@
       const settingsbutton = select('search > primary > settings > img');
       settingsbutton.addEventListener('click',(e) => {
 
-         e.preventDefaultAction();
+         e.stop();
          SearchOptions.toggle();
 
       });

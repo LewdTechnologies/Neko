@@ -16,7 +16,7 @@
 
    const relevant = [
       /*    POSTS PAGE    */
-      /^https\:\/\/e621\.net\/posts(\?[\S\s]*)?$/
+      /^https\:\/\/e(621|926)\.net\/posts(\?[\S\s]*)?$/
    ];
 
 

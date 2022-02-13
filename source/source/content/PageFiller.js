@@ -63,7 +63,7 @@
          WAIT FOR ORIGINAL TO LOAD
    */
 
-   window.onload = () => {
+   window.onload = async () => {
 
       // console.clear();
 
