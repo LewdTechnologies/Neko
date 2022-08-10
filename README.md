@@ -12,10 +12,12 @@
 *An **E621** Chrome extension.*
 
 <br>
+<br>
 
 [![Button Download]][Releases]   
 [![Button Changelog]][Changelog]
 
+<br>
 <br>
 
 ![Showcase]
