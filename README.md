@@ -4,13 +4,20 @@
 <div align = center>
 
 [![Badge Matrix]][Matrix]   
-[![Badge Downloads]][Releases]
+[![Badge Downloads]][Releases]   
+[![Badge Commits]][Source]
 
 <br>
+<br>
 
-## Neko
+<img
+    src = 'resources/Logo.png'
+    width = 160
+/>
 
-*An **E621** Chrome extension.*
+# Neko
+
+***E621*** */* ***E926*** <br> *Chrome Extension*
 
 <br>
 <br>
@@ -18,20 +25,13 @@
 [![Button Download]][Releases]   
 [![Button Changelog]][Changelog]
 
+[![Button Source]][Source]   
+[![Button Public]][Public]
+
 <br>
 <br>
 
 ![Showcase]
-
-<br>
-<br>
-
-## Branches
-
-<br>
-
-[![Button Source]][Source]   
-[![Button Public]][Public]
 
 </div>
 
@@ -52,8 +52,8 @@
 <!---------------------------------[ Badges ]---------------------------------->
 
 [Badge Downloads]: https://img.shields.io/github/downloads/LewdTechnologies/Neko/total?style=for-the-badge&labelColor=319795&color=236c6a&logoColor=white&logo=GoogleAnalytics
+[Badge Commits]: https://img.shields.io/github/commit-activity/m/LewdTechnologies/Neko?color=00679e&labelColor=007ec6&label=Commits&logo=Git%20LFS&logoColor=white&style=for-the-badge
 [Badge Matrix]: https://img.shields.io/matrix/lewdtech:matrix.org?color=0a936a&label=Matrix&logo=Matrix&logoColor=white&style=for-the-badge&labelColor=0DBD8B
-
 
 <!---------------------------------[ Buttons ]--------------------------------->
 
