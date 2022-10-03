@@ -3,6 +3,7 @@
 
 <div align = center>
 
+[![Badge Matrix]][Matrix]   
 [![Badge Downloads]][Releases]
 
 <br>
@@ -43,6 +44,7 @@
 [Releases]: https://github.com/LewdTechnologies/Neko/releases
 [Public]: https://github.com/LewdTechnologies/Neko/tree/Version
 [Source]: https://github.com/LewdTechnologies/Neko/tree/Source
+[Matrix]: https://matrix.to/#/#lewdtechnologies:matrix.org
 
 [Showcase]: resources/Showcase.png
 
@@ -50,6 +52,7 @@
 <!---------------------------------[ Badges ]---------------------------------->
 
 [Badge Downloads]: https://img.shields.io/github/downloads/LewdTechnologies/Neko/total?style=for-the-badge&labelColor=319795&color=236c6a&logoColor=white&logo=GoogleAnalytics
+[Badge Matrix]: https://img.shields.io/matrix/lewdtech:matrix.org?color=0a936a&label=Matrix&logo=Matrix&logoColor=white&style=for-the-badge&labelColor=0DBD8B
 
 
 <!---------------------------------[ Buttons ]--------------------------------->
