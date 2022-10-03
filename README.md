@@ -4,7 +4,8 @@
 <div align = center>
 
 [![Badge Matrix]][Matrix]   
-[![Badge Downloads]][Releases]   
+[![Badge Downloads]][Releases]
+
 [![Badge Commits]][Source]
 
 <br>
@@ -34,8 +35,6 @@
 ![Showcase]
 
 </div>
-
-<br>
 
 
 <!----------------------------------------------------------------------------->
