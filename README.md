@@ -32,7 +32,34 @@
 <br>
 <br>
 
-![Showcase]
+<img
+    src = 'resources/Showcase.png'
+    width = 500
+/>
+
+<br>
+<br>
+
+## Death Of MV2
+
+<br>
+
+As **Google** is killing off **Manifest Version 2** and with <br>
+it the effectiveness of most **AdBlockers**, it also forces <br>
+all extension authors to switch to it, latest **2024** when <br>
+even the enterprise support stops.
+
+<br>
+
+The plan for **Neko** is to transition to a standalone app.
+
+<br>
+
+This isn't an easy step, and has been tried before but <br>
+it seems like the only non-compromising solution.
+
+***Also, Fuck You Google*** <br>
+**RIP MV2**
 
 </div>
 
@@ -44,8 +71,6 @@
 [Public]: https://github.com/LewdTechnologies/Neko/tree/Version
 [Source]: https://github.com/LewdTechnologies/Neko/tree/Source
 [Matrix]: https://matrix.to/#/#lewdtechnologies:matrix.org
-
-[Showcase]: resources/Showcase.png
 
 
 <!---------------------------------[ Badges ]---------------------------------->
