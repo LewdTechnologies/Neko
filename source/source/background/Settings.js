@@ -1,85 +1,78 @@
 
 (() => {
 
-   const
-      { storage , runtime } = chrome,
-      { onConnect } = runtime,
-      { local } = storage;
-
-   const recipients = new Set;
-   let settings;
+    const
+        { fromEntries , entries } = Object ,
+        { storage , runtime } = chrome ,
+        { onConnect } = runtime ,
+        { local } = storage ;
 
 
-   /*
-         HELPER
-   */
-
-   const others = (port) =>
-      [...recipients]
-      .filter((p) => p !== port);
+    const recipients = new Set;
+    let settings;
 
 
-   const save = () =>
-      local.set({ settings: Object.fromEntries([...settings]) });
+    const others = (Port) => [ ... recipients ]
+        .filter((port) => port !== Port);
 
-   const update = (type,value) => {
+    const doNothing = () => {};
 
-      settings.set(type,value);
-      save();
+    const save = () =>
+        local.set({ settings : fromEntries([ ... settings ]) });
 
-   }
+    const update = (type,value) => {
+        settings.set(type,value);
+        save();
+    }
 
-   const load = () =>
-      new Promise((resolve) =>
-         local.get([ 'settings' ],(data) =>
-            resolve(data[ 'settings' ])));
+    const loadData = (key) => new Promise((resolve) => {
+        local.get([key],(data) => {
+            resolve(data[key]);
+        });
+    });
+        
 
-
-   /*
-         LOAD SETTINGS
-   */
-
-   load().then((data = {}) => {
-
-      data['minimized_mode'] ??= false;
-      data['advanced_mode'] ??= true;
-      data['search.automatic_suggestions'] ??= true;
-      data['search.rating'] ??= null;
-
-      settings = new Map(Object.entries(data));
-
-   });
+    const load = () => 
+        loadData('settings');
 
 
-   /*
-         LISTEN FOR NEW RECIPIENTS
-   */
+    /*
+     *  Load Settings
+     */
 
-   onConnect.addListener((port) => {
+    load().then((data = {}) => {
 
-      if(port.name !== 'settings')
-         return;
+        data['search.automatic_suggestions'] ??= true;
+        data['minimized_mode'] ??= false;
+        data['advanced_mode'] ??= true;
+        data['search.rating'] ??= null;
 
-      recipients.add(port);
+        settings = new Map(entries(data));
+    });
 
-      port.postMessage([...settings],() => {});
 
-      port.onDisconnect.addListener(() => {
+    /*
+     *  Listen for new recipients.
+     */
 
-         recipients.delete(port);
+    onConnect.addListener((port) => {
 
-      });
+        if(port.name !== 'settings')
+            return;
 
-      port.onMessage.addListener(([ type , value ]) => {
+        recipients.add(port);
 
-         update(type,value);
+        port.postMessage([ ... settings ],doNothing);
 
-         others(port).forEach((port) => {
-            port.postMessage([ type , value ],() => {});
-         });
+        port.onDisconnect.addListener(() => 
+            recipients.delete(port));
 
-      });
+        port.onMessage.addListener(([ type , value ]) => {
 
-   });
+            update(type,value);
 
+            others(port).forEach((port) =>
+                port.postMessage([ type , value ],doNothing));
+        });
+    });
 })();

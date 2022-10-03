@@ -2,41 +2,37 @@
 (() => {
 
 
-   /*
-         EXTRACT TAGS
-   */
+    /*
+     *  Extract Tags
+     */
 
-   Extractor.tagExtractor = (element) => (resolve) => {
+    Extractor.tagExtractor = (element) => (resolve) => {
 
-      try {
+        const { children , className } = element;
 
-         const [ search , countElement ] = [...element.children]
-            .slice(-2);
+        try {
 
-         const categoryId = element.className
-            .match(/category-(\d)/)
-            ?.[1];
+            const [ search , countElement ] = [ ... children ]
+                .slice(-2);
 
-         if(!categoryId)
-            return warn(`Missing category Id`,element);
+            const categoryId = className
+                .match(/category-(\d)/)
+                ?.[1];
 
-         const category = Extractor.idToCategory(Number(categoryId));
+            if(!categoryId)
+                return warn(`Missing category Id`,element);
 
 
-         const count = Number(countElement.dataset?.count);
+            const 
+                category = Extractor.idToCategory(Number(categoryId)) ,
+                count = Number(countElement.dataset?.count) ,
+                id = decodeURIComponent(search.href.match(/=([\s\S]+)$/)?.[1]) ;
 
-         const id = decodeURIComponent(search.href
-            .match(/=([\s\S]+)$/)
-            ?.[1]);
+            const name = TagName.from(id);
 
-         const name = TagName.from(id);
+            resolve({ id , name , count , category });
 
-         resolve({ id , name , count , category });
-
-      } catch (e) {
-         console.log(e);
-      }
-
-   };
+        } catch (error) { console.log(error); }
+    }
 
 })();

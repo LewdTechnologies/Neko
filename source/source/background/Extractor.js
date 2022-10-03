@@ -1,25 +1,27 @@
 
 (() => {
 
-   window.Extractor ??= {};
+    window.Extractor ??= {};
 
 
-   const parser = new DOMParser();
+    const parser = new DOMParser;
 
 
-   Extractor.process = ({ pageType , html }) => (resolve) => {
+    Extractor.process = ({ pageType , html }) => (resolve) => {
 
-      html = `<html>${ html }</html>`;
-      html = parser.parseFromString(html,'text/html');
+        html = `<html>${ html }</html>`;
+        html = parser.parseFromString(html,'text/html');
 
-      switch(pageType){
-      case 'posts':
-         Extractor.postsExtractor(html)(resolve);
-         return;
-      default:
-         resolve({});
-      }
-
-   };
+        switch(pageType){
+        
+        case 'posts':
+            Extractor.postsExtractor(html)(resolve);
+            return;
+            
+        default:
+            resolve({});
+        
+        }
+    }
 
 })();
