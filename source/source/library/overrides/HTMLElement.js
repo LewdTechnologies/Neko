@@ -1,47 +1,47 @@
 
 
 (() => {
+    
+    const 
+        { defineProperty } = Object ,
+        { prototype } = HTMLElement ;
 
 
-   /*
-         HELPER
-   */
+    const override = (name) => (method) =>
+        prototype[name] = method;
 
-   const override = (name) => (func) =>
-      HTMLElement.prototype[name] = func;
+    const get = (name) => (get) =>
+        defineProperty(prototype,name,{ get });
 
-   const get = (name) => (get) =>
-      Object.defineProperty(HTMLElement.prototype,name,{ get });
-
-   const set = (name) => (set) =>
-      Object.defineProperty(HTMLElement.prototype,name,{ set });
+    const set = (name) => (set) =>
+        defineProperty(prototype,name,{ set });
 
 
-   /*
-         ITEMS
-   */
+    /*
+     *  Set Visibility
+     */
 
-   set('visible')(function(state){
-      this.style.visibility = state ? 'visible' : 'hidden';
-   });
-
-
-   /*
-         SHOW
-   */
-
-   override('show')(function(){
-      this.visible = true;
-   });
+    set('visible')(function(state){
+        this.style.visibility = state 
+            ? 'visible' 
+            : 'hidden' 
+    })
 
 
-   /*
-         HIDE
-   */
+    /*
+     *  SHOW
+     */
 
-   override('hide')(function(){
-      this.visible = false;
-   });
+    override('show')(function(){
+        this.visible = true })
+
+
+    /*
+     *  HIDE
+     */
+
+    override('hide')(function(){
+        this.visible = false })
 
 
 })();

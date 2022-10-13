@@ -3,60 +3,50 @@
 (() => {
 
 
-   /*
-         HELPER
-   */
-
-   const override = (name) => (func) =>
-      Array.prototype[name] = func;
-
-
-   /*
-         CAPITALIZE
-   */
-
-   override('capitalize')(function(){
-      return this
-      .map((string) => string.capitalize());
-   });
+    const override = (name) => (method) =>
+        Array.prototype[name] = method;
+    
+    const capitalize = (string) => 
+        string.capitalize();
 
 
-   /*
-         TO SENTENCE
-   */
+    /*
+     *  Capitalize
+     */
 
-   override('toSentence')(function(){
-      return this.join(' ');
-   });
-
-
-   /*
-         TO QUERY
-   */
-
-   override('toQuery')(function(){
-      return this
-      .join('+');
-   });
+    override('capitalize')(function(){
+        return this.map(capitalize) })
 
 
-   /*
-         TO ENCODED URI COMPONENTS
-   */
+    /*
+     * To Sentence
+     */
 
-   override('toEncodedURIComponents',function(){
-      return this
-      .map(toEncodedURIComponent);
-   });
+    override('toSentence')(function(){
+        return this.join(' ') })
+        
+
+    /*
+     * To Query
+     */
+
+    override('toQuery')(function(){
+        return this.join('+') })
 
 
-   /*
-         IS EMPTY
-   */
+    /*
+     * To Encoded URI Components
+     */
 
-   override('isEmpty',function(){
-      return this
-      .length < 1;
-   });
+    override('toEncodedURIComponents',function(){
+        return this.map(toEncodedURIComponent) })
+
+
+    /*
+     *  Is Empty
+     */
+
+    override('isEmpty',function(){
+        return this.length < 1 })
 
 })();

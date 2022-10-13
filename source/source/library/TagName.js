@@ -1,35 +1,27 @@
 (() => {
 
-   window.TagName ??= {};
+    window.TagName ??= {};
 
 
-   /*
-         HELPER
-   */
+    const trim = (string) =>
+        string.trim();
 
-   const trim = (string) =>
-      string.trim();
-
-   const capitalize = (string) =>
-      (string[0]?.toUpperCase() ?? '') + string.substring(1);
+    const capitalize = (string) =>
+        `${ string.charAt(0).toUpperCase() }${ string.substring(1) }`;
 
 
-   /*
-         TAG ID -> NAME
-   */
+    /*
+     *  Tag Id ⟶ Name
+     */
 
-   TagName.from = (string) => {
-
-      string = string
-         .trim()
-         .replaceAll(/\w\(/g,(match) => match[0] + ' (')
-         .replaceAll(/ +/g,' ')
-         .split(/ |_/)
-         .map(trim)
-         .map(capitalize)
-         .join(' ');
-
-      return string;
-   };
+    TagName.from = (string) => 
+        string
+        .trim()
+        .replaceAll(/\w\(/g,(match) => match[0] + ' (')
+        .replaceAll(/ +/g,' ')
+        .split(/ |_/)
+        .map(trim)
+        .map(capitalize)
+        .join(' ');
 
 })();

@@ -1,46 +1,40 @@
 
 (() => {
+    
+    const { defineProperty } = Object;
+    
+
+    const override = (name) => (func) =>
+        Element.prototype[name] = func;
+
+    const get = (name) => (get) =>
+        defineProperty(Element.prototype,name,{ get });
+
+    const set = (name) => (set) =>
+        defineProperty(Element.prototype,name,{ set });
 
 
-   /*
-         HELPER
-   */
+    /*
+     *  List of sub-elements
+     */
 
-   const override = (name) => (func) =>
-      Element.prototype[name] = func;
-
-   const get = (name) => (get) =>
-      Object.defineProperty(Element.prototype,name,{ get });
-
-   const set = (name) => (set) =>
-      Object.defineProperty(Element.prototype,name,{ set });
+    get('items')(function(){
+        return [ ...this.children ] })
 
 
-   /*
-         ITEMS
-   */
+    /*
+     *  Add Class
+     */
 
-   get('items')(function(){
-      return [ ...this.children ];
-   });
-
-
-   /*
-         ADD CLASS
-   */
-
-   override('addClass')(function(Class){
-      this.classList.add(Class);
-   });
+    override('addClass')(function(Class){
+        this.classList.add(Class) })
 
 
-   /*
-         REMOVE CLASS
-   */
+    /*
+     * Remove Class
+     */
 
-   override('removeClass')(function(Class){
-      this.classList.remove(Class);
-   });
-
+    override('removeClass')(function(name){
+        this.classList.remove(name) })
 
 })();

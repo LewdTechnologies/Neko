@@ -2,44 +2,43 @@
 
 (() => {
 
-   window.Search ??= {};
+    window.Search ??= {};
 
-   class Tag {
+    class Tag {
 
-      #negative = false;
-      #id = '';
-
-
-      constructor(id,negative){
-         this.#id = id;
-         this.#negative = negative;
-      }
+        #negative = false;
+        #id = '';
 
 
-      get name(){
+        constructor(id,negative){
+            this.#negative = negative;
+            this.#id = id;
+        }
 
 
-      }
+        get name(){}
 
-      get id(){
-         return this.#id;
-      }
+        get id(){
+            return this.#id;
+        }
+        
+        get query(){
+            return this.#prefix + this.#encodedId;
+        }
+        
 
-      get #prefix(){
-         return this.#negative ? '-' : '';
-      }
+        get #prefix(){
+            return this.#negative 
+                ? '-' 
+                : '' ;
+        }
 
-      get #encodedId(){
-         return encodeURIComponent(this.#id);
-      }
-
-      get query(){
-         return this.#prefix + this.#encodedId;
-      }
-
-   }
+        get #encodedId(){
+            return encodeURIComponent(this.id);
+        }
+    }
 
 
-   Search.Tag = Tag;
+    Search.Tag = Tag;
 
 })();

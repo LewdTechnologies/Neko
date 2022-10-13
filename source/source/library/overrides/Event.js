@@ -2,22 +2,17 @@
 
 (() => {
 
-
-   /*
-         HELPER
-   */
-
-   const override = (name) => (func) =>
-      Event.prototype[name] = func;
+    const override = (name) => (method) =>
+        Event.prototype[name] = method;
 
 
-   /*
-         PREVENT DEFAULT & STOP IMMEDIATELY
-   */
+    /*
+     *  Prevent default event & stop the current propagation.
+     */
 
-   override('stop')(function(){
-      this.preventDefault();
-      this.stopImmediatePropagation();
-   });
+    override('stop')(function(){
+        this.preventDefault();
+        this.stopImmediatePropagation();
+    });
 
 })();

@@ -1,37 +1,36 @@
 
 (() => {
 
-
-   /*
-         HELPER
-   */
-
-   const override = (name) => (func) =>
-      Node.prototype[name] = func;
-
-   const get = (name) => (get) =>
-      Object.defineProperty(Node.prototype,name,{ get });
-
-   const set = (name) => (set) =>
-      Object.defineProperty(Node.prototype,name,{ set });
+    const 
+        { defineProperty } = Object ,
+        { prototype } = Node ;
 
 
-   /*
-         NODES
-   */
+    const override = (name) => (func) =>
+        prototype[name] = func;
 
-   get('nodes')(function(){
-      return [ ...this.childNodes ];
-   });
+    const get = (name) => (get) =>
+        defineProperty(prototype,name,{ get });
+
+    const set = (name) => (set) =>
+        defineProperty(prototype,name,{ set });
 
 
-   /*
-         CLEAR NODES
-   */
+    /*
+     *  List Sub-nodes
+     */
 
-   override('clearNodes')(function(){
-      while(this.lastChild)
-         this.removeChild(this.lastChild);
-   });
+    get('nodes')(function(){
+        return [ ...this.childNodes ] })
+
+
+    /*
+     *  Clear Sub-nodes
+     */
+
+    override('clearNodes')(function(){
+        while(this.lastChild)
+            this.removeChild(this.lastChild);
+    });
 
 })();

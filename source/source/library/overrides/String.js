@@ -1,54 +1,45 @@
 
 (() => {
 
-
-   /*
-         HELPER
-   */
-
-   const override = (name) => (func) =>
-      String.prototype[name] = func;
+    const { prototype } = String;
 
 
-   /*
-         CAPITALIZE
-   */
-
-   override('capitalize')(function(type){
-      return this
-         .charAt(0)
-         .toUpperCase()
-      + this.substring(1);
-   });
+    const override = (name) => (method) =>
+        prototype[name] = method;
 
 
-   /*
-         TO WORDS
-   */
+    /*
+     *  Capitalize
+     */
 
-   override('toWords')(function(){
-      return this
-      .split(/ +/);
-   });
+    override('capitalize')(function(type){
+        return `${ this.charAt(0).toUpperCase() }${ this.substring(1) }` })
 
 
-   /*
-         USES START
-   */
+    /*
+     *  To Words
+     */
 
-   override('usesStart')(function(sequence){
-      return (this.startsWith(sequence))
-      ? [ this.slice(sequence.length) , true ]
-      : [ this , false ];
-   });
+    override('toWords')(function(){
+        return this.split(/ +/) })
 
 
-   /*
-         REMOVE
-   */
+    /*
+     *  Uses Start
+     */
 
-   override('remove')(function(regex){
-      return this.replaceAll(regex,'');
-   });
+    override('usesStart')(function(sequence){
+        return (this.startsWith(sequence))
+            ? [ this.slice(sequence.length) , true ]
+            : [ this , false ] ;
+    })
+
+
+    /*
+     *  Remove Matches
+     */
+
+    override('remove')(function(regex){
+        return this.replaceAll(regex,'') })
 
 })();

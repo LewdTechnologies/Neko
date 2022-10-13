@@ -1,24 +1,19 @@
 
 (() => {
 
-
-   /*
-         HELPER
-   */
-
-   const override = (name) => (func) =>
-      EventTarget.prototype[name] = func;
+    const override = (name) => (method) =>
+        EventTarget.prototype[name] = method;
 
 
-   /*
-         PREVENT DEFAULT ACTION
-   */
+    /*
+     *  Prevent Default Action
+     */
 
-   override('preventDefaultAction')(function(type){
-      this.addEventListener(type,(event) => {
-         event.preventDefault();
-         event.stopImmediatePropagation();
-      });
-   });
+    override('preventDefaultAction')(function(type){
+        this.addEventListener(type,(event) => {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+        });
+    });
 
 })();

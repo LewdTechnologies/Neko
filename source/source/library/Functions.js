@@ -1,14 +1,14 @@
 
 (() => {
 
-   noOP = () => {};
+    noOP = () => {};
 
-   Void = (resolve) => {
-      const ⵃ = () => resolve(ⵃ);
-      ⵃ();
-   };
+    Void = (resolve) => {
+        const ⵃ = () => resolve(ⵃ);
+        ⵃ();
+    };
 
-   Timeout = (delay,resolve) =>
-      setTimeout(resolve ?? delay,resolve ? delay : 0);
+    Timeout = (delay,resolve) =>
+        setTimeout(resolve ?? delay,resolve ? delay : 0);
 
 })();

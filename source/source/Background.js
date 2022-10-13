@@ -1,72 +1,69 @@
 
 (() => {
+    
+    const { entries } = Object;
 
-   const { runtime } = chrome;
-   const { onMessage } = runtime;
+    const
+        { runtime , tabs } = chrome ,
+        { onMessage } = runtime ;
+        
 
+    const openTab = ({ url , active }) => (resolve) =>
+        tabs.create({ url , active },resolve);
 
-   const requests = {};
+    
+    /*
+     * Input Requests
+     */
+    
+    const requests = {
+        
+        'download.append' : () =>
+            Download.append() ,
+        
+        'extractHtml' : (data) =>
+            Extractor.process(data) ,
+            
+        'user.logout' : () =>
+            User.logout() ,
+            
+        'tabs.open' : () =>
+            openTab()
+        
+    }
+    
 
+    /*
+     *  Listen To Content Script
+     */
 
-   /*
-         HELPER
-   */
+    onMessage.addListener((args,sender,resolve) => {
 
-   const on = (request,processor) =>
-      requests[request] = processor;
+        const { action } = args;
 
-   const openTab = ({ url , active }) => (resolve) =>
-      chrome.tabs.create({ url , active },resolve);
+        if(!action)
+            return false;
 
+        const { data = [] } = args;
 
-   /*
-         LISTEN TO CONTENT SCRIPT
-   */
+        const tabId = sender?.tab?.id;
 
-   onMessage.addListener((args,sender,resolve) => {
+        const result = requests[action]
+            ?.({ tabId , ... data });
 
-      const { action } = args;
+        if(typeof result === 'function'){
+            result(resolve);
+            return true;
+        }
 
-      if(!action)
-         return false;
-
-
-      const tabId = sender?.tab?.id;
-
-      args = { tabId , ...(args.data ?? {}) };
-
-      const result = requests[action]?.(args);
-
-      if(typeof result === 'function'){
-         result(resolve);
-         return true;
-      }
-
-      resolve();
-
-      return false;
-   });
-
-
-   /*
-         INPUT REQUESTS
-   */
-
-   on('extractHtml',(data) =>
-      Extractor.process(data));
-
-   on('user.logout',() =>
-      User.logout);
-
-   on('tabs.open',openTab);
-
-   on('download.append',Download.append);
-
+        resolve();
+        return false;
+    })
 })();
 
 
 (() => {
 
-   Version.check();
+    Version.check();
 
 })();

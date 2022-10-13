@@ -1,26 +1,29 @@
 
-
-
 (() => {
 
-   const colors = [ 'gray' , '#FFCCCDAA' , 'gray' , '#FFCCCD' ]
-      .map((color) => `color:${ color }`);
+    const colors = [ 'gray' , '#FFCCCDAA' , 'gray' , '#FFCCCD' ]
+        .map((color) => `color:${ color }`);
 
-   const combine = (args = []) =>
-      [`%c[%cNeko%c]: %c`,...args]
-      .map((item) => String(item))
-      .join('');
+    const combine = (args = []) =>
+        [ `%c[%cNeko%c]: %c` , ... args ]
+        .map((item) => String(item))
+        .join('');
 
-   const print = (type) => (...args) =>
-      console[type](combine(args),...colors);
+    const print = (type) => (...args) =>
+        console[type](combine(args),...colors);
 
 
-   window.log = print('log');
+    window.log = 
+        print('log');
 
-   window.warn = print('warn');
+    window.warn = 
+        print('warn');
 
-   window.error = print('error');
+    window.error = 
+        print('error');
 
-   window.debug = DEBUG ? print('log') : noOp;
+    window.debug = DEBUG 
+        ? print('log') 
+        : noOp;
 
 })();

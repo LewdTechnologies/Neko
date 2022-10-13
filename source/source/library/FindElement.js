@@ -2,31 +2,31 @@
 
 (() => {
 
-   find = (parent,type,method) =>
-      ((type && parent) ?? document)[method](type ?? parent);
+    find = (parent,type,method) =>
+        ((type && parent) ?? document)[method](type ?? parent);
 
-   findClasses = (parent,className) =>
-      [...find(parent,className,'getElementsByClassName')];
+    findClasses = (parent,className) =>
+        [ ... find(parent,className,'getElementsByClassName') ];
 
-   findTags = (parent,tagName) =>
-      [...find(parent,tagName,'getElementsByTagName')];
+    findTags = (parent,tagName) =>
+        [ ... find(parent,tagName,'getElementsByTagName') ];
 
-   findClass = (parent,className) =>
-      findClasses(parent,className)?.[0];
+    findClass = (parent,className) =>
+        findClasses(parent,className)?.[0];
 
-   findTag = (parent,tagName) =>
-      findTags(parent,tagName)?.[0];
+    findTag = (parent,tagName) =>
+        findTags(parent,tagName)?.[0];
 
-   findId = (document,id) =>
-      find(document,id,'getElementById');
+    findId = (document,id) =>
+        find(document,id,'getElementById');
 
-   select = (document,selector) =>
-      find(document,selector,'querySelector');
+    select = (document,selector) =>
+        find(document,selector,'querySelector');
 
-   selectAll = (document,selector) =>
-      [...find(document,selector,'querySelectorAll')];
+    selectAll = (document,selector) =>
+        [ ... find(document,selector,'querySelectorAll') ];
 
-   findMeta = (document,name) =>
-      select(document,`[name=${ name }]`)?.content;
+    findMeta = (document,name) =>
+        select(document,`[name=${ name }]`)?.content;
 
 })();
