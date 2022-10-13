@@ -1,46 +1,45 @@
 
 (() => {
 
-   console.clear();
-   console.time('Page Load');
+    const { clear , time } = console;
+    
+
+    clear();
+    time('Page Load');
 
 
-   /*
-         HELPER
-   */
+    const create = (type) =>
+        document.createElement(type);
 
-   const create = (type) =>
-      document.createElement(type);
+    const addToBody = (element) =>
+        document.body.appendChild(element);
 
-   const addToBody = (element) =>
-      document.body.appendChild(element);
+    const insertTemplate = () => {
 
-   const insertTemplate = () => {
+        Blank = create('div');
+        Blank.id = 'blank';
+        Blank.innerHTML = Template;
 
-      Blank = create('div');
-      Blank.id = 'blank';
-      Blank.innerHTML = Template;
+        delete Template;
 
-      delete Template;
-
-      addToBody(Blank);
-
-   };
+        addToBody(Blank);
+    }
 
 
-   /*
-         WAIT UNTIL HTML IS PRESENT
-   */
+    /*
+     *  Wait until the HTML is present.
+     */
 
-   document.documentElement.id = 'original';
+    document.documentElement.id = 'original';
 
-   Void((check) => {
+    Void((check) => {
 
-      if(!document.body)
-         return Timeout(check);
-
-      insertTemplate();
-
-   });
+        if(document.body){
+            insertTemplate();
+            return;
+        }
+        
+        return Timeout(check);
+    })
 
 })();

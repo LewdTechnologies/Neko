@@ -1,36 +1,30 @@
 
 (() => {
 
-   window.User ??= {};
+    window.User ??= {};
 
-   const { sendMessage } = chrome.runtime;
-
-
-   /*
-         HELPER
-   */
-
-   const logout = (resolve) =>
-      sendMessage({ action: 'user.logout' },resolve);
-
-   const redirectTo = (url) =>
-      window.location.href = url;
+    const { sendMessage } = chrome.runtime;
 
 
-   /*
-         CLEAR & LOGOUT
-   */
+    const logout = () =>
+        new Promise((resolve) =>
+            sendMessage({ action: 'user.logout' },resolve));
 
-   User.logout = () => {
+    const redirectTo = (url) =>
+        window.location.href = url;
 
-      logout(() => {
 
-         window.localStorage?.clear();
+    /*
+     *  Clear & Logout
+     */
 
-         redirectTo(`https://e621.net/session/sign_out`);
+    User.logout = async () => {
+        
+        await logout();
+        
+        window.localStorage?.clear();
 
-      });
-
-   };
+        redirectTo(`https://e621.net/session/sign_out`);
+    }
 
 })();

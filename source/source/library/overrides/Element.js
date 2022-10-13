@@ -1,17 +1,19 @@
 
 (() => {
     
-    const { defineProperty } = Object;
+    const 
+        { defineProperty } = Object ,
+        { prototype } = Element ;
     
 
     const override = (name) => (func) =>
-        Element.prototype[name] = func;
+        prototype[name] = func;
 
     const get = (name) => (get) =>
-        defineProperty(Element.prototype,name,{ get });
+        defineProperty(prototype,name,{ get });
 
     const set = (name) => (set) =>
-        defineProperty(Element.prototype,name,{ set });
+        defineProperty(prototype,name,{ set });
 
 
     /*
@@ -26,12 +28,12 @@
      *  Add Class
      */
 
-    override('addClass')(function(Class){
-        this.classList.add(Class) })
+    override('addClass')(function(name){
+        this.classList.add(name) })
 
 
     /*
-     * Remove Class
+     *  Remove Class
      */
 
     override('removeClass')(function(name){

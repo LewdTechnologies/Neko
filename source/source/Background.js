@@ -8,10 +8,11 @@
         { onMessage } = runtime ;
         
 
-    const openTab = ({ url , active }) => (resolve) =>
-        tabs.create({ url , active },resolve);
+    const openTab = ({ url , active }) => 
+        new Promise((resolve) =>
+            tabs.create({ url , active },resolve));
 
-    
+        
     /*
      * Input Requests
      */
@@ -33,22 +34,20 @@
      *  Listen To Content Script
      */
 
-    onMessage.addListener((args,sender,resolve) => {
+    onMessage.addListener(async (args,sender,resolve) => {
 
         const { action } = args;
 
-        if(!action)
-            return false;
+        if(action){
+            
+            const { data = [] } = args;
 
-        const { data = [] } = args;
+            const tabId = sender?.tab?.id;
 
-        const tabId = sender?.tab?.id;
+            const result = await requests[action]
+                ?.({ tabId , ... data });
 
-        const result = requests[action]
-            ?.({ tabId , ... data });
-
-        if(typeof result === 'function'){
-            result(resolve);
+            resolve(result);
             return true;
         }
 

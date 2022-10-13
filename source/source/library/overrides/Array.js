@@ -2,9 +2,11 @@
 
 (() => {
 
+    const { prototype } = Array;
+
 
     const override = (name) => (method) =>
-        Array.prototype[name] = method;
+        prototype[name] = method;
     
     const capitalize = (string) => 
         string.capitalize();

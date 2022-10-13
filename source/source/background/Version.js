@@ -1,62 +1,68 @@
 
 (() => {
 
-   window.Version ??= {};
+    window.Version ??= {};
 
 
-   let outdated = false;
+    let outdated = false;
 
-   const version_url = 'https://raw.githubusercontent.com/LewdTechnologies/Neko/Version/Version.txt';
-   const version = Manifest
-      .version()
-      .split('.')
-      .map((string) => Number(string));
+    const version_url = 'https://raw.githubusercontent.com/LewdTechnologies/Neko/Version/Version.txt';
+    
+    const version = Manifest
+        .version()
+        .split('.')
+        .map((string) => Number(string));
+    
+    const isOutdated = (latest) =>
+        latest.some((number,index) => number > version[index]);
+        
 
 
-   const failedToRequest = () =>
-      warn(`Failed to request version info.`);
+    const failedToRequest = () =>
+        warn(`Failed to request version info.`);
 
-   const extractInfo = (response) => response
-      .text()
-      .then((content) => content.trim())
-      .then((string) => string.split('.'))
-      .then((strings) => strings.map(Number))
-      .then(([ major = 0 , minor = 0 , build = 0 ]) => [ major , minor , build ])
-      .then((numbers) => numbers.some((number,index) => number > version[index]))
-      .then((state) => {
-         if(outdated = state)
+    const extractInfo = async (response) => {
+    
+        const string = await response.text();
+        
+        const parts = string
+            .trim()
+            .split('.')
+            .map(Number);
+        
+        const [ major = 0 , minor = 0 , build = 0 ] = parts;
+        
+        if(isOutdated([ major , minor , build ]))
             promptUpdate();
-         else
+        else
             logUpToDate();
-      });
+    }
 
-   const promptUpdate = () =>
-      warn(`Please update!`);
+    const promptUpdate = () =>
+        warn(`Please update!`);
 
-   const logUpToDate = () =>
-      log(`Neko is up to date [ ${ Version.string() } ] ${ Math.random() }`);
+    const logUpToDate = () =>
+        log(`Neko is up to date [ ${ Version.string() } ] ${ Math.random() }`);
 
 
+    Version.check = () =>
+        fetch(version_url)
+        .catch(failedToRequest)
+        .then(extractInfo);
 
-   Version.check = () => {
-      fetch(version_url)
-      .catch(failedToRequest)
-      .then(extractInfo);
-   };
+    Version.isOutdated = () =>
+        outdated;
 
-   Version.isOutdated = () =>
-      outdated;
+    Version.major = () =>
+        version[0];
 
-   Version.major = () =>
-      version[0];
+    Version.minor = () =>
+        version[1];
 
-   Version.minor = () =>
-      version[1];
+    Version.build = () =>
+        version[2];
 
-   Version.build = () =>
-      version[2];
-
-   Version.string = () =>
-      version.join('.');
+    Version.string = () =>
+        version.join('.');
 
 })();

@@ -1,43 +1,36 @@
 
 (() => {
 
-   window.User ??= {};
+    window.User ??= {};
 
-   const { remove , getAll } = chrome.cookies;
-
-
-   /*
-         HELPER
-   */
-
-   const toDetails = ({ name , storeId }) => ({
-      name , storeId , url: 'https://e621.net'
-   });
-
-   const removeCookie = (cookie) =>
-      new Promise((resolve) => {
-         remove(toDetails(cookie),resolve);
-      });
-
-   const removeCookies = (cookies) =>
-      Promise.all(cookies.map(removeCookie));
+    const { remove , getAll } = chrome.cookies;
 
 
-   /*
-         CLEAR USER DATA
-   */
 
-   User.logout = (resolve) => {
+    const toDetails = ({ name , storeId }) => 
+        ({ name , storeId , url: 'https://e621.net' });
+        
+    const queryCookies = () =>
+        new Promise((resolve) => 
+            getAll({ domain: 'e621.net' },resolve));
 
-      getAll({ domain: 'e621.net' },(cookies) => {
+    const removeCookie = (cookie) =>
+        new Promise((resolve) => 
+            remove(toDetails(cookie),resolve));
 
-          console.log(cookies);
+    const removeCookies = (cookies) =>
+        Promise.all(cookies.map(removeCookie));
 
-          removeCookies(cookies)
-          .then(resolve);
 
-      });
-      
-   };
+    /*
+     *  Clear User Data
+     */
+
+    User.logout = async (resolve) => {
+
+        const cookies = await queryCookies();
+        
+        await removeCookies(cookies);
+    }
 
 })();
