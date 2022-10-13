@@ -18,17 +18,13 @@
     
     const requests = {
         
-        'download.append' : () =>
-            Download.append() ,
+        'download.append' : Download.append ,
         
-        'extractHtml' : (data) =>
-            Extractor.process(data) ,
-            
-        'user.logout' : () =>
-            User.logout() ,
-            
-        'tabs.open' : () =>
-            openTab()
+        'extractHtml' : Extractor.process ,
+        
+        'user.logout' : User.logout ,
+        
+        'tabs.open' : openTab
         
     }
     
