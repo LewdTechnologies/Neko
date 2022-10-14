@@ -1,37 +1,37 @@
 
 (() => {
 
-   window.Advanced ??= {};
+    window.Advanced ??= {};
 
 
-   /*
-         SETUP ADVANCED MODE
-   */
+    /*
+     *  Setup Advanced Mode
+     */
 
-   Advanced.init = () => {
+    Advanced.init = () => {
 
-      Settings.on('advanced_mode')((state) => {
+        Settings.on('advanced_mode')((state) => {
 
-         state = (state) ? 'add' : 'remove';
+            state = (state) 
+                ? 'add' 
+                : 'remove' ;
 
-         selectAll('[advanced]')
-         .map((element) => element.classList)
-         .forEach((list) => list[state]('hasAdvanced'));
+            selectAll('[advanced]')
+                .map((element) => element.classList)
+                .forEach((list) => list[state]('hasAdvanced'));
 
-         selectAll('[advance]')
-         .map((element) => element.classList)
-         .forEach((list) => list[state]('show'));
-
-      });
-
-   };
+            selectAll('[advance]')
+                .map((element) => element.classList)
+                .forEach((list) => list[state]('show'));
+        })
+    }
 
 
-   /*
-         TOGGLE ADVANCED MODE
-   */
+    /*
+     *  Toggle Advanced Mode
+     */
 
-   Advanced.toggle = () =>
-      Settings.toggle('advanced_mode');
+    Advanced.toggle = () =>
+        Settings.toggle('advanced_mode');
 
-})();
+})()

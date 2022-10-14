@@ -1,31 +1,31 @@
 
 (() => {
 
-   window.Minimize ??= {};
+    window.Minimize ??= {};
 
 
-   /*
-         SETUP MINIMIZE MODE
-   */
+    /*
+     *  Setup Minimize Mode
+     */
 
-   Minimize.init = () => {
+    Minimize.init = () => {
 
-      Settings.on('minimized_mode')((state) => {
+        Settings.on('minimized_mode')((state) => {
 
-         state = (state) ? 'add' : 'remove';
+            state = (state) 
+                ? 'add' 
+                : 'remove' ;
 
-         document.body.classList[state]('minimize');
-
-      });
-
-   };
+            document.body.classList[state]('minimize');
+        })
+    }
 
 
-   /*
-         TOGGLE MINIMIZE MODE
-   */
+    /*
+     *  Toggle Minimize Mode
+     */
 
-   Minimize.toggle = () =>
-      Settings.toggle('minimized_mode');
+    Minimize.toggle = () =>
+        Settings.toggle('minimized_mode');
 
-})();
+})()
