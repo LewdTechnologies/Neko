@@ -1,29 +1,26 @@
 
 (() => {
 
-    const colors = [ 'gray' , '#FFCCCDAA' , 'gray' , '#FFCCCD' ]
-        .map((color) => `color:${ color }`);
+    const parts = [
+        [ '[' , 'gray' ] ,
+        [ 'Neko' , '#FFCCCDAA' ] ,
+        [ ']: ' , 'gray' ] ,
+        [ '%s' , '#FFCCCD' ]
+    ]
 
-    const combine = (args = []) =>
-        [ `%c[%cNeko%c]: %c` , ... args ]
-        .map((item) => String(item))
-        .join('');
+    const pattern = parts
+        .map(([ text ]) => `%c${ text }`)
+        .join('')
 
-    const print = (type) => (...args) =>
-        console[type](combine(args),...colors);
+    const colors = parts
+        .map(([ _ , color ]) => `color:${ color }` )
 
+    const print = ( type ) => console[ type ]
+        .bind(console,pattern,...colors)
 
-    window.log = 
-        print('log');
-
-    window.warn = 
-        print('warn');
-
-    window.error = 
-        print('error');
-
-    window.debug = DEBUG 
-        ? print('log') 
-        : noOp;
+    window.debug = print('debug')
+    window.error = print('error')
+    window.warn = print('warn')
+    window.log = print('log')
 
 })();
