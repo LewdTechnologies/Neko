@@ -21,8 +21,7 @@
     Page.isNSFW = 
         Page.host === 'e621';
 
-    Page.url = 
-        `https://${ Page.host }.net/`;
+   Page.url = `https://${ Page.host }.net`;
 
     Page.tags = (parameter.get('tags') ?? '')
         .toLowerCase()

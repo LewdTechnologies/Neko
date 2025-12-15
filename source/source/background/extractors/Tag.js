@@ -6,33 +6,25 @@
      *  Extract Tags
      */
 
-    Extractor.tagExtractor = (element) => (resolve) => {
-
-        const { children , className } = element;
+    Extractor.tagExtractor = 
+        ( element ) => 
+        ( resolve ) => 
+    {
 
         try {
 
-            const [ search , countElement ] = [ ... children ]
-                .slice(-2);
-
-            const categoryId = className
-                .match(/category-(\d)/)
-                ?.[1];
-
-            if(!categoryId)
-                return warn(`Missing category Id`,element);
-
-
             const 
-                category = Extractor.idToCategory(Number(categoryId)) ,
-                count = Number(countElement.dataset?.count) ,
-                id = decodeURIComponent(search.href.match(/=([\s\S]+)$/)?.[1]) ;
+                category = element.dataset.category ,
+                count = Number( element.dataset.count ) ,
+                id = decodeURIComponent( element.dataset.name )
 
-            const name = TagName.from(id);
+            const name = TagName.from(id)
 
-            resolve({ id , name , count , category });
+            resolve({ id , name , count , category })
 
-        } catch (error) { console.log(error); }
+        } catch ( error ) { 
+            console.log(error)
+        }
     }
 
 })();

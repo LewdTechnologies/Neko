@@ -1,7 +1,7 @@
 
 (() => {
 
-   Template = `
+    window.Template = `
             <navigation minimizable>
                <div class='logIO'></div>
                <a href='/'>${ Page.host.toUpperCase() }</a>

@@ -56,6 +56,8 @@
             const { button , target } = event;
 
             let mode = target.localName;
+            
+            console.debug('Rating Click',{ button , mode })
 
             switch(button){
             case 0:
@@ -64,6 +66,8 @@
                   mode = null;
 
                update(mode);
+
+               Search.redirect()
 
                break;
             case 2:
@@ -75,6 +79,8 @@
                   update(mode);
 
                Settings.set('search.rating',mode);
+
+               Search.redirect()
 
                break;
             }

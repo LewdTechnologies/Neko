@@ -5,7 +5,7 @@
 
     const
         { runtime } = chrome,
-        { getURL , sendMessage } = runtime;
+        { getURL } = runtime;
 
 
     /*
@@ -14,7 +14,7 @@
 
     let pageType = 'unknown';
 
-    const { pathname } = window.location;
+    const { pathname } = location
 
     switch(true){
     case /\/posts($|\?)/.test(pathname) :
@@ -22,17 +22,29 @@
         break;
     }
 
+    console.debug('PageType',pageType)
+
+    const sendMessage = ( message ) => 
+        new Promise(( resolve ) => {
+            chrome.runtime.sendMessage(message,( response ) => {
+                console.debug('Response',response)
+                resolve(response)
+            })
+        })
 
     const html = () =>
         document.documentElement.innerHTML.trim();
 
-    const msg = (action,data) => 
-        new Promise((resolve) =>
-            sendMessage({ action , data },resolve));
-
     const processHTML = async (html) => {
+
+        console.debug('Chrome',chrome)
         
-        const info = await msg('extractHtml',{ html , pageType });
+        const info = await sendMessage({ 
+            action : 'extractHtml' , 
+            data : { html , pageType }
+        })
+
+        console.debug('Info',info)
         
         FurnishTemplate(info);
         

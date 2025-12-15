@@ -194,6 +194,7 @@
                 const [ X , Y , Width , Height ] = 
                     normalizedBounds();
 
+               // console.debug({ x ,y,width,height},{X,Y,Width,Height})
 
                 const outside =
                     (x > X + Width) ||
@@ -266,6 +267,8 @@
 
                 selectionMode = ! selectionMode;
                 updateSelectionMode();
+
+               event.stopImmediatePropagation()
 
                 return;
             }

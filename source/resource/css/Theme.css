@@ -226,7 +226,7 @@ left > taglist {
 
    background-color: var(--blue-dim);
    background-image: var(--decoration);
-   background-repeat-y: no-repeat;
+   background-repeat : repeat-x ;
 
    padding: 18px;
    margin-right: 8px;
@@ -339,6 +339,7 @@ search {
    border-radius: 11px;
    background-color: var(--blue-dim);
    background-image: var(--decoration);
+   background-repeat : repeat-x ;
 
    /* gap: 5px; */
 
@@ -556,6 +557,7 @@ posts > post {
    justify-content: center;
    align-items: center;
 
+   user-select : none ;
 }
 
 posts > post > img {
@@ -574,6 +576,7 @@ posts > post > img {
 
    cursor: pointer;
 
+   -webkit-user-drag : none ;
 }
 
 body.download::before {
@@ -620,6 +623,7 @@ right > pagination {
 
    background-color: var(--blue-dim);
    background-image: var(--decoration);
+   background-repeat : repeat-x ;
 
    padding: 7px;
    border-radius: 11px;
@@ -715,6 +719,7 @@ right > download {
 
    background-color: var(--blue-dim);
    background-image: var(--decoration);
+   background-repeat : repeat-x ;
 
    border-radius: 11px;
    margin-left: 8px;

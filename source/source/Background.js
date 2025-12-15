@@ -1,8 +1,6 @@
 
 (() => {
     
-    const { entries } = Object;
-
     const
         { runtime , tabs } = chrome ,
         { onMessage } = runtime ;
@@ -34,31 +32,36 @@
      *  Listen To Content Script
      */
 
-    onMessage.addListener(async (args,sender,resolve) => {
+    onMessage.addListener((args,sender,respond) => {
 
         const { action } = args;
 
-        if(action){
+        if( action ){
             
-            const { data = [] } = args;
+            const { data = [] } = args
 
-            const tabId = sender?.tab?.id;
+            const tabId = sender?.tab?.id
 
-            const result = await requests[action]
-                ?.({ tabId , ... data });
+            const handler = requests[ action ]
 
-            resolve(result);
-            return true;
+            if( ! handler ){
+                resolve(null)
+                return false
+            }
+
+            handler({ tabId , ... data }).then(respond)
+
+            return true
         }
 
-        resolve();
-        return false;
+        respond(null)
+        return false
     })
 })();
 
 
 (() => {
 
-    Version.check();
+    Version.check()
 
 })();

@@ -189,6 +189,8 @@
 
    };
 
+   const redirectToQuery = () => 
+      buildQuery().then((url) => url.redirectTo())
 
    const keys = {
       'Escape': [ true , () => SearchSuggestion.hide() ],
@@ -196,7 +198,7 @@
       'Tab': [ true , pushTag ],
       'Delete': [ false , ({ shiftKey }) =>
          shiftKey && clearTags()],
-      'Enter': [ true , () => buildQuery().then((url) => url.redirectTo()) ],
+      'Enter': [ true , () => redirectToQuery() ],
       'ControlLeft': [ false , () =>
          Settings.not('search.automatic_suggestions') && suggestTags()],
       'ControlRight': [ false , () =>
@@ -209,6 +211,8 @@
    */
 
    Search.changeTo = changeTo;
+
+   Search.redirect = redirectToQuery
 
    Search.focus = () => {
 

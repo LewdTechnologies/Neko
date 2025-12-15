@@ -17,7 +17,7 @@
 		"cookies",
 		"downloads",
 		"webRequest",
-      "webRequestBlocking",
+        "webRequestBlocking",
 		"https://*.e621.net/*",
 		"https://e621.net/*",
 		"https://*.e926.net/*",
@@ -48,7 +48,6 @@
 			"source/background/Extractor.js",
 			"source/background/extractors/Posts.js",
 			"source/background/extractors/Tag.js",
-			"source/background/extractors/Category.js",
 			"source/background/Download.js",
 
 			"source/Background.js"

@@ -3,7 +3,7 @@
     
     const
         select_comments = '.desc > .post-score > .post-score-comments' ,
-        select_posts = '#posts-container > article' ,
+        select_posts = '#posts article' ,
         select_tags = '#tag-box > ul > li' ;
 
 
@@ -25,35 +25,38 @@
          *  Extract Tag Data
          */
 
-        for(const element of selectAll(doc,select_tags))
-            Extractor.tagExtractor(element)
-                ((tagData) => info.tags.push(tagData));
+        selectAll(doc,select_tags).forEach(( element ) => {
+            Extractor.tagExtractor(element)(( tag ) => 
+                info.tags.push(tag)
+            )
+        })
 
 
         /*
          *  Extract Post Data
          */
 
-        for(const element of selectAll(doc,select_posts))
-            extractPost(element)
-                ((postData) => info.posts.push(postData));
+        selectAll(doc,select_posts).forEach(( element ) => {
+            extractPost(element)(( post ) => 
+                info.posts.push(post))
+        })
 
 
         /*
          *  Extract User Data
          */
 
-        (() => {
+        ;(() => {
 
             const [ id , name ] = [ 'id' , 'name' ]
-                .map((type) => `current-user-${ type}`)
+                .map((type) => `current-user-${ type }`)
                 .map((name) => findMeta(doc,name));
 
             const { user } = info;
             
-            user.isAnon = (name === 'Anonymous');
-            user.name = name;
-            user.id = Number(id) ?? -1;
+            user.isAnon = ( name === 'Anonymous' )
+            user.name = name
+            user.id = Number(id) ?? -1
 
         })();
 
@@ -71,7 +74,7 @@
                 const info = {
                     favorites : Number(dataset.favCount) ,
                     extension : dataset.fileExt ,
-                    favorited : Boolean(dataset.isFavorited) ,
+                    favorited : dataset.isFavorited === 'true' ,
                     comments : Number(select(element,select_comments)?.innerText.substring(1) ?? -1) ,
                     rating : dataset.rating ,
                     score : Number(dataset.score) ,
@@ -85,8 +88,8 @@
                     },
                     
                     urls : {
-                        preview : dataset.previewFileUrl ,
-                        large : dataset.largeFileUrl ,
+                        preview : dataset.previewUrl ,
+                        sample : dataset.sampleUrl ,
                         file : dataset.fileUrl
                     }
                 }
