@@ -1,28 +1,18 @@
 
-<br>
+<br/>
 
 <div align = 'center' >
 
 [![Badge Stoat]][Stoat]   
-[![Badge Downloads]][Releases]
-
+[![Badge Downloads]][Releases]   
 [![Badge Commits]][Source]
 
-<br>
-<br>
-
-<img
-    width = '160'
-    src = 'resources/Logo.png'
-/>
-
-# Neko
+# <img height = '22' src = 'resources/Logo.png' /> Neko
 
 [Ungoogled Chromium] browser extension  
 that redesigns the interface of ***E621*** */* ***E926***.
 
-<br>
-<br>
+<br/>
 
 [![Button Download]][Releases]   
 [![Button Changelog]][Changelog]
@@ -30,20 +20,19 @@ that redesigns the interface of ***E621*** */* ***E926***.
 [![Button Source]][Source]   
 [![Button Public]][Public]
 
-<br>
-<br>
+<br/>
 
 <img
     src = 'resources/Showcase.png'
     width = 500
 />
 
-<br>
-<br>
+<br/>
+<br/>
 
 ## Manifest V2
 
-<br>
+<br/>
 
 As **Google** has killed off **Manifest Version 2** it the effectiveness of most  
 **Content Blocks** like **UBlock Origin**, it also forced all extension authors  
@@ -73,6 +62,6 @@ as it ships with a patch that reverses the MV2 removal.
 <!---------------------------------[ Buttons ]--------------------------------->
 
 [Button Changelog]: https://img.shields.io/badge/Changelog-A9225C?style=for-the-badge&logoColor=white&logo=BookStack
-[Button Download]: https://img.shields.io/badge/Download-37814A?style=for-the-badge&logoColor=white&logo=DocuSign
+[Button Download]: https://img.shields.io/badge/Download-37814A?style=for-the-badge&logoColor=white&logo=AirplayVideo
 [Button Source]: https://img.shields.io/badge/Source_Code-3584E3?style=for-the-badge&logoColor=white&logo=GitHub
 [Button Public]: https://img.shields.io/badge/Public_Data-26689A?style=for-the-badge&logoColor=white&logo=AddThis
