@@ -56,7 +56,7 @@ as it ships with a patch that reverses the MV2 removal.
 <!---------------------------------[ Badges ]---------------------------------->
 
 [Badge Downloads]: https://img.shields.io/github/downloads/LewdTechnologies/Neko/total?style=for-the-badge&labelColor=319795&color=236c6a&logoColor=white&logo=GoogleAnalytics
-[Badge Commits]: https://img.shields.io/github/commit-activity/m/LewdTechnologies/Neko?color=00679e&labelColor=007ec6&label=Commits&logo=Git%20LFS&logoColor=white&style=for-the-badge
+[Badge Commits]: https://img.shields.io/github/commit-activity/m/LewdTechnologies/Neko/Source?color=00679e&labelColor=007ec6&label=Commits&logo=Git%20LFS&logoColor=white&style=for-the-badge
 [Badge Stoat]: https://img.shields.io/badge/Discord-322b47?logo=Discord&logoColor=white&style=for-the-badge&labelColor=262136
 
 <!---------------------------------[ Buttons ]--------------------------------->
