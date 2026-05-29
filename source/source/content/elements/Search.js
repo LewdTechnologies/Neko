@@ -137,7 +137,7 @@
 
       const { dataset } = input;
 
-      const valid = await TagManager.isValid(dataset.tag ?? tagid);
+      const valid = await Tag_Manager.is_valid(dataset.tag ?? tagid);
 
       if(!valid)
          return;

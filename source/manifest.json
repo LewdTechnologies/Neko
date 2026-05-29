@@ -110,7 +110,7 @@
 			"source/content/elements/Pagination.js",
 			"source/content/elements/Download.js",
 
-			"source/content/mechanics/TagManager.js",
+			"source/content/mechanics/Tag-Manager.js",
 			"source/content/mechanics/Advanced.js",
 			"source/content/mechanics/Minimize.js",
 			"source/library/TagName.js"

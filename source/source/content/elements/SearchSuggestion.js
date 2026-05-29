@@ -35,7 +35,7 @@
       open = true;
       last = string;
 
-      TagManager
+      Tag_Manager
       .search(string)
       .then((suggestions) => {
 
