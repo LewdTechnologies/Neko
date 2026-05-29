@@ -150,29 +150,29 @@
          APPEND NEW QUEUE ENTRY
    */
 
-   Download.append = ({ files }) => {
+   Download.append = ({ files }) => 
+      new Promise(( resolve ) => {
 
-      setTimeout(() => {
+         setTimeout(() => {
 
-         const add = files.filter((file) => !completed.has(file.name));
+            const add = files.filter((file) => !completed.has(file.name));
 
-         if(add.length < 1)
-            return;
+            if( add.length < 1 )
+               return resolve()
 
-         queue = queue.concat(add);
+            queue = queue.concat(add);
 
-         updateStatus(queue.map(({ name }) => ({ name , status: 'waiting' })));
+            updateStatus(queue.map(({ name }) => ({ name , status: 'waiting' })));
 
-         if(state)
-            return;
+            if(state)
+               return resolve()
 
-         startQueue();
+            startQueue();
+            resolve()
 
-      },0);
-
-      return false;
-
-   };
+         },0);
+      })
+   
 
 
    /*
