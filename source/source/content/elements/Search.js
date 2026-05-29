@@ -46,7 +46,7 @@
       .capitalize()
       .toSentence();
 
-   const tagFromName = (tagName) => tagName
+   const tagFromName = ( name ) => name
       .trim()
       .replaceAll(spaces,'_')
       .replaceAll(underscores,'_')
@@ -150,7 +150,7 @@
 
       const
          id = dataset.tag ?? tagid,
-         name = TagName.from(dataset.tag ?? tagid);
+         name = Tag_Name.from(dataset.tag ?? tagid);
 
       createTag(id,name);
 
@@ -265,7 +265,7 @@
 
       Page.tags.forEach(([ tag , negative ]) => {
 
-         createTag(tag,TagName.from(tag),negative);
+         createTag(tag,Tag_Name.from(tag),negative);
 
       });
    };

@@ -39,12 +39,12 @@
             }
          },() => {});
 
-      const tagToDisplay = (tagName) => {
+      const tagToDisplay = ( name ) => {
 
          const parts = [];
          let combined = '';
 
-         tagName
+         name
          .split(' ')
          .forEach((part) => {
 

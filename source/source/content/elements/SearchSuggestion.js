@@ -45,7 +45,7 @@
          for(const { id , name } of suggestions){
 
             const element = document.createElement('tag');
-            element.innerText = TagName.from(name);
+            element.innerText = Tag_Name.from(name);
             container.appendChild(element);
 
             element.onclick = () => {
@@ -53,7 +53,7 @@
                SearchSuggestion.hide();
                input.dataset.id = id;
                input.dataset.tag = name;
-               Search.changeTo(TagName.from(name));
+               Search.changeTo(Tag_Name.from(name));
 
             };
 

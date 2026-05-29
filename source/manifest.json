@@ -36,7 +36,7 @@
 			"source/library/Debug.js",
 			"source/library/Logger.js",
 			"source/library/FindElement.js",
-			"source/library/TagName.js",
+			"source/library/Tag-Name.js",
 			"source/library/Manifest.js",
 
 			"source/background/Version.js",
@@ -113,7 +113,7 @@
 			"source/content/mechanics/Tag-Manager.js",
 			"source/content/mechanics/Advanced.js",
 			"source/content/mechanics/Minimize.js",
-			"source/library/TagName.js"
+			"source/library/Tag-Name.js"
 
 		],
 

@@ -18,7 +18,7 @@
                 count = Number( element.dataset.count ) ,
                 id = decodeURIComponent( element.dataset.name )
 
-            const name = TagName.from(id)
+            const name = Tag_Name.from(id)
 
             resolve({ id , name , count , category })
 
