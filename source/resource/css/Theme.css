@@ -168,7 +168,6 @@ main {
 left {
 
    min-width: fit-content;
-   min-height: fit-content;
    height: 100%;
 
    overflow: scroll;
@@ -214,7 +213,7 @@ right {
 
 left > taglist {
 
-   width: 132px;
+   width : fit-content ;
    height: fit-content;
 
    display: flex;
@@ -228,7 +227,7 @@ left > taglist {
    background-image: var(--decoration);
    background-repeat : repeat-x ;
 
-   padding: 18px;
+   padding: 0.75rem ;
    margin-right: 8px;
    border-radius: 8px;
    gap: 8px;
@@ -239,7 +238,7 @@ left > taglist {
 
 taglist > tag {
 
-   width: 100%;
+   width : calc( 100% - 2 * 1rem ) ;
 
    display: flex;
    flex-direction: row;
@@ -247,6 +246,15 @@ taglist > tag {
    align-content: center;
    justify-content: space-between;
    align-items: center;
+
+   background-color : var( ---Color ) ;
+   border-radius : 0.5rem ;
+   padding : 0.5rem 1rem ;
+
+   background-blend-mode : overlay ;
+   background-repeat : repeat-x ;
+   background-image : var( --decoration ) ;
+
 
    gap: 6px;
 
@@ -266,32 +274,26 @@ taglist > tag > name {
 taglist > tag > name > span {
 
    font-weight: bold;
-
+   color : white ;
 }
 
-taglist > tag[data-category='unknown'] > name > span {
-   color: var(--category-unknown); }
-taglist > tag[data-category='general'] > name > span {
-   color: var(--category-general); }
-taglist > tag[data-category='artist'] > name > span {
-   color: var(--category-artist); }
-taglist > tag[data-category='copyright'] > name > span {
-   color: var(--category-copyright); }
-taglist > tag[data-category='character'] > name > span {
-   color: var(--category-character); }
-taglist > tag[data-category='species'] > name > span {
-   color: var(--category-species); }
-taglist > tag[data-category='invalid'] > name > span {
-   color: var(--category-invalid); }
-taglist > tag[data-category='meta'] > name > span {
-   color: var(--category-meta); }
-taglist > tag[data-category='lore'] > name > span {
-   color: var(--category-lore); }
+taglist tag {
+
+   ---Color : var( --category-unknown ) ;
+   
+   &[ data-category = 'copyright' ]{ ---Color : var( --category-copyright ) ; }
+   &[ data-category = 'character' ]{ ---Color : var( --category-character ) ; }
+   &[ data-category = 'unknown' ]{ ---Color : var( --category-unknown ) ; }
+   &[ data-category = 'general' ]{ ---Color : var( --category-general ) ; }
+   &[ data-category = 'species' ]{ ---Color : var( --category-species ) ; }
+   &[ data-category = 'invalid' ]{ ---Color : var( --category-invalid ) ; }
+   &[ data-category = 'artist' ]{ ---Color : var( --category-artist ) ; }
+   &[ data-category = 'meta' ]{ ---Color : var( --category-meta ) ; }
+   &[ data-category = 'lore' ]{ ---Color : var( --category-lore ) ; }
+}
 
 taglist > tag > :is(name,count) {
-
    transition: .3s;
-
 }
 
 taglist > tag.dummy > name ,
@@ -303,7 +305,7 @@ taglist > tag.dummy > count {
 
 taglist > tag > count {
 
-   color: var(--font-gray);
+   color : #efefef ;
    font-size: 12px;
    font-weight: bold;
 
