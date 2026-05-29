@@ -1,7 +1,7 @@
 
 <br>
 
-<div align = center>
+<div align = 'center' >
 
 [![Badge Stoat]][Stoat]   
 [![Badge Downloads]][Releases]
@@ -12,8 +12,8 @@
 <br>
 
 <img
+    width = '160'
     src = 'resources/Logo.png'
-    width = 160
 />
 
 # Neko
@@ -41,26 +41,16 @@ that redesigns the interface of ***E621*** */* ***E926***.
 <br>
 <br>
 
-## Death Of MV2
+## Manifest V2
 
 <br>
 
-As **Google** is killing off **Manifest Version 2** and with <br>
-it the effectiveness of most **AdBlockers**, it also forces <br>
-all extension authors to switch to it, latest **2024** when <br>
-even the enterprise support stops.
+As **Google** has killed off **Manifest Version 2** it the effectiveness of most  
+**Content Blocks** like **UBlock Origin**, it also forced all extension authors  
+to switch to it if they wanted to stay on the **Chrome Extension Store**.
 
-<br>
-
-The plan for **Neko** is to transition to a standalone app.
-
-<br>
-
-This isn't an easy step, and has been tried before but <br>
-it seems like the only non-compromising solution.
-
-***Also, Fuck You Google*** <br>
-**RIP MV2**
+**Neko** is now focused on [Ungoogled Chromium] only  
+as it ships with a patch that reverses the MV2 removal.
 
 </div>
 
