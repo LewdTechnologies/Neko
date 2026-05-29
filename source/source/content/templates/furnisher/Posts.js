@@ -105,8 +105,24 @@
             .slice(length)
             .forEach((element) => element.remove());
 
+         const Category_Order = {
+            artist : 1 ,
+            character : 2 ,
+            species : 3 ,
+            copyright : 4 ,
+            lore : 5 ,
+            meta : 6 ,
+            invalid : 9 ,
+            general : 8 ,
+            unknown : 10 ,
+         }
 
-         tags.forEach((tag,index) => {
+         tags
+         .sort(( a , b ) => 
+            Category_Order[ a.category ] - 
+            Category_Order[ b.category ]
+         )
+         .forEach((tag,index) => {
 
             const tagContainer = children[index] ?? newContainer();
             const [ name , count ] = tagContainer.children;
