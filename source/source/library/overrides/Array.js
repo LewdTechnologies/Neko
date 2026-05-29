@@ -12,7 +12,7 @@
         string.capitalize();
 
 
-    /*
+    /**
      *  Capitalize
      */
 
@@ -20,7 +20,7 @@
         return this.map(capitalize) })
 
 
-    /*
+    /**
      * To Sentence
      */
 
@@ -28,7 +28,7 @@
         return this.join(' ') })
         
 
-    /*
+    /**
      * To Query
      */
 
@@ -36,7 +36,7 @@
         return this.join('+') })
 
 
-    /*
+    /**
      * To Encoded URI Components
      */
 
@@ -44,7 +44,7 @@
         return this.map(toEncodedURIComponent) })
 
 
-    /*
+    /**
      *  Is Empty
      */
 

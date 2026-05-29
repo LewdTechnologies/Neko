@@ -1,21 +1,19 @@
 
-
-
 (() => {
 
-    window.Manifest ??= {};
+   const { runtime } = chrome
 
+   window.Manifest ??= {}
 
-    const manifest = chrome.runtime.getManifest();
+   const manifest = runtime.getManifest()
 
+   Manifest.uuid = () =>
+      runtime.id
 
-    Manifest.uuid = () =>
-        chrome.runtime.id;
+   Manifest.version = () =>
+      manifest.version
 
-    Manifest.version = () =>
-        manifest.version;
-
-    Manifest.versionName = () =>
-        manifest.versionName;
+   Manifest.versionName = () =>
+      manifest.versionName
 
 })();

@@ -16,7 +16,7 @@
         defineProperty(prototype,name,{ set });
 
 
-    /*
+    /**
      *  List of sub-elements
      */
 
@@ -24,7 +24,7 @@
         return [ ...this.children ] })
 
 
-    /*
+    /**
      *  Add Class
      */
 
@@ -32,7 +32,7 @@
         this.classList.add(name) })
 
 
-    /*
+    /**
      *  Remove Class
      */
 

@@ -6,7 +6,7 @@
         Event.prototype[name] = method;
 
 
-    /*
+    /**
      *  Prevent default event & stop the current propagation.
      */
 

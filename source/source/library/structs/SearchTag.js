@@ -2,43 +2,41 @@
 
 (() => {
 
-    window.Search ??= {};
+   window.Search ??= {}
+   class Tag {
 
-    class Tag {
-
-        #negative = false;
-        #id = '';
-
-
-        constructor(id,negative){
-            this.#negative = negative;
-            this.#id = id;
-        }
+      #negative = false
+      #id = ''
 
 
-        get name(){}
-
-        get id(){
-            return this.#id;
-        }
-        
-        get query(){
-            return this.#prefix + this.#encodedId;
-        }
-        
-
-        get #prefix(){
-            return this.#negative 
-                ? '-' 
-                : '' ;
-        }
-
-        get #encodedId(){
-            return encodeURIComponent(this.id);
-        }
-    }
+      constructor ( id , negative ){
+         this.#negative = negative
+         this.#id = id
+      }
 
 
-    Search.Tag = Tag;
+      get name (){}
+
+      get id (){
+         return this.#id
+      }
+      
+      get query (){
+         return this.#prefix + this.#encodedId
+      }
+      
+
+      get #prefix (){
+         return this.#negative 
+            ? '-' : ''
+      }
+
+      get #encodedId (){
+         return encodeURIComponent(this.id)
+      }
+   }
+
+
+   Search.Tag = Tag
 
 })();

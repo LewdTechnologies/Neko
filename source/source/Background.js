@@ -1,62 +1,50 @@
 
 (() => {
     
-    const
-        { runtime , tabs } = chrome ,
-        { onMessage } = runtime ;
-        
+   const
+      { runtime , tabs } = chrome ,
+      { onMessage } = runtime
+      
 
-    const openTab = ({ url , active }) => 
-        new Promise((resolve) =>
-            tabs.create({ url , active },resolve));
+   const openTab = ({ url , active }) => 
+      new Promise(( resolve ) =>
+         tabs.create({ url , active },resolve))
 
         
-    /*
-     * Input Requests
-     */
+   /* Input Requests */
     
-    const requests = {
-        
-        'download.append' : Download.append ,
-        
-        'extractHtml' : Extractor.process ,
-        
-        'user.logout' : User.logout ,
-        
-        'tabs.open' : openTab
-        
-    }
+   const requests = {
+      'download.append' : Download.append ,
+      'extractHtml' : Extractor.process ,
+      'user.logout' : User.logout ,
+      'tabs.open' : openTab
+   }
     
 
-    /*
-     *  Listen To Content Script
-     */
+   /* Listen To Content Script */
 
-    onMessage.addListener((args,sender,respond) => {
+   onMessage.addListener(( args , sender , respond ) => {
 
-        const { action } = args;
+      const { action } = args
 
-        if( action ){
-            
-            const { data = [] } = args
+      if( action ){
+         
+         const { data = [] } = args
 
-            const tabId = sender?.tab?.id
+         const tabId = sender?.tab?.id
 
-            const handler = requests[ action ]
+         const handler = requests[ action ]
 
-            if( ! handler ){
-                resolve(null)
-                return false
-            }
-
+         if( handler ){
             handler({ tabId , ... data }).then(respond)
-
             return true
-        }
+         }
+      }
 
-        respond(null)
-        return false
-    })
+      respond(null)
+      return false
+   })
+
 })();
 
 

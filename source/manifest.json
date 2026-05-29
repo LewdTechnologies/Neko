@@ -17,7 +17,7 @@
 		"cookies",
 		"downloads",
 		"webRequest",
-        "webRequestBlocking",
+      "webRequestBlocking",
 		"https://*.e621.net/*",
 		"https://e621.net/*",
 		"https://*.e926.net/*",
@@ -94,20 +94,7 @@
 			"source/content/Page.js",
 			"source/content/User.js",
 			"source/content/utils/SearchURL.js",
-			"source/library/Manifest.js"
-
-		],
-		"css": [
-			"resource/css/Hexagons.css",
-			"resource/css/Theme.css"
-		]
-	},{
-		"run_at": "document_start",
-		"matches": [
-			"https://e621.net/posts" , "https://e621.net/posts?*",
-			"https://e926.net/posts" , "https://e926.net/posts?*"
-		],
-		"js": [
+			"source/library/Manifest.js" ,
 
 			"source/content/templates/generator/Posts.js",
 			"source/content/templates/furnisher/Posts.js",
@@ -128,6 +115,11 @@
 			"source/content/mechanics/Minimize.js",
 			"source/library/TagName.js"
 
+		],
+
+		"css": [
+			"resource/css/Hexagons.css",
+			"resource/css/Theme.css"
 		]
 	},{
 		"run_at": "document_end",

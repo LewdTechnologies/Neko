@@ -5,7 +5,7 @@
         EventTarget.prototype[name] = method;
 
 
-    /*
+    /**
      *  Prevent Default Action
      */
 

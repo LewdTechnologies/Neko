@@ -36,13 +36,14 @@
                               Page.isNSFW ?
                               `<rating>
                                  <explicit>
-                                    <img src='chrome-extension://${ chrome.runtime.id }/resource/icons/NVTR1LKIZD.png'>
+                                    
+                                    <img src='${ chrome.extension.getURL('resource/icons/NVTR1LKIZD.png') }'>
                                  </explicit>
                                  <questionable>
-                                    <img src='chrome-extension://${ chrome.runtime.id }/resource/icons/3QKCEKJD04.png'>
+                                    <img src='${ chrome.extension.getURL('resource/icons/3QKCEKJD04.png') }'>
                                  </questionable>
                                  <safe>
-                                    <img src='chrome-extension://${ chrome.runtime.id }/resource/icons/MNM1T9UJLX.png'>
+                                    <img src='${ chrome.extension.getURL('resource/icons/MNM1T9UJLX.png') }'>
                                  </safe>
                               </rating>` : ''
                            }
