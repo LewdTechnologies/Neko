@@ -15,7 +15,7 @@
    */
 
    const endpoint = () =>
-      `${ Page.url }tags/autocomplete.json`;
+      `${ Page.url }/tags/autocomplete.json`;
 
    const requestTags = async (term) => {
 
