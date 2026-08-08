@@ -1,78 +1,85 @@
 
 (() => {
 
-    const
-        { fromEntries , entries } = Object ,
-        { storage , runtime } = chrome ,
-        { onConnect } = runtime ,
-        { local } = storage ;
+   const
+      { fromEntries , entries } = Object ,
+      { storage , runtime } = chrome ,
+      { onConnect } = runtime ,
+      { local } = storage
 
 
-    const recipients = new Set;
-    let settings;
+   const recipients = new Set
 
+   let settings
 
-    const others = (Port) => [ ... recipients ]
-        .filter((port) => port !== Port);
+   /////////////////////////////////////////////////////////////////////////////
 
-    const doNothing = () => {};
+   const others = ( Port ) => [ ... recipients ]
+      .filter(( port ) => port !== Port )
 
-    const save = () =>
-        local.set({ settings : fromEntries([ ... settings ]) });
+   const doNothing = () => {}
 
-    const update = (type,value) => {
-        settings.set(type,value);
-        save();
-    }
+   const save = () => local.set({
+      settings : fromEntries([ ... settings ])
+   })
 
-    const loadData = (key) => new Promise((resolve) => {
-        local.get([key],(data) => {
-            resolve(data[key]);
-        });
-    });
-        
+   const update = ( type , value ) => {
+      settings.set(type,value)
+      save()
+   }
 
-    const load = () => 
-        loadData('settings');
+   const loadData = ( key ) => new Promise(( resolve ) => {
+      local.get([ key ],(data) => {
+         resolve(data[key])
+      })
+   })
 
+   const load = () => loadData('settings')
 
-    /*
-     *  Load Settings
-     */
+   /////////////////////////////////////////////////////////////////////////////
 
-    load().then((data = {}) => {
+   /**
+    *  Load Settings
+    */
 
-        data['search.automatic_suggestions'] ??= true;
-        data['minimized_mode'] ??= false;
-        data['advanced_mode'] ??= true;
-        data['search.rating'] ??= null;
+   load().then((data = {}) => {
 
-        settings = new Map(entries(data));
-    });
+      data[ 'search.automatic_suggestions' ] ??= true
+      data[ 'minimized_mode' ] ??= false
+      data[ 'advanced_mode' ] ??= true
+      data[ 'search.rating' ] ??= null
 
+      settings = new Map(entries(data))
+   })
 
-    /*
-     *  Listen for new recipients.
-     */
+   /////////////////////////////////////////////////////////////////////////////
 
-    onConnect.addListener((port) => {
+   /**
+    *  Listen for new recipients.
+    */
 
-        if(port.name !== 'settings')
-            return;
+   onConnect.addListener(( port ) => {
 
-        recipients.add(port);
+      if( port.name !== 'settings' )
+         return
 
-        port.postMessage([ ... settings ],doNothing);
+      recipients.add(port)
 
-        port.onDisconnect.addListener(() => 
-            recipients.delete(port));
+      port.postMessage([ ... settings ],doNothing)
 
-        port.onMessage.addListener(([ type , value ]) => {
+      port.onDisconnect.addListener(() =>
+         recipients.delete(port)
+      )
 
-            update(type,value);
+      port.onMessage.addListener(([ type , value ]) => {
 
-            others(port).forEach((port) =>
-                port.postMessage([ type , value ],doNothing));
-        });
-    });
-})();
+         update(type,value)
+
+         others( port )
+         .forEach(( port ) => port
+            .postMessage([ type , value ],doNothing)
+         )
+      })
+   })
+
+})()

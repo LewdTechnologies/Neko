@@ -1,34 +1,33 @@
 
 (() => {
 
-   window.Download ??= {};
+   window.Download ??= {}
 
-   const { create , remove , executeScript , onUpdated } = chrome.tabs;
-   const { onConnect } = chrome.runtime;
-   const { onChanged } = chrome.downloads;
+   /////////////////////////////////////////////////////////////////////////////
 
-   let queue = [];
-   let state = false;
+   const { create , remove , executeScript , onUpdated } = chrome.tabs
+   const { onChanged } = chrome.downloads
+   const { onConnect } = chrome.runtime
 
-   let workspace;
-   let connection;
+   let queue = []
+   let state = false
 
-   const recipients = new Map;
-   const completed = new Set;
+   let workspace
+   let connection
 
-   let item;
+   const recipients = new Map
+   const completed = new Set
 
-   const minimumWaitTime = 2000;
+   let item
 
-   const { floor , random } = Math;
+   const minimumWaitTime = 2000
 
+   const { floor , random } = Math
 
-   /*
-         HELPER
-   */
+   /////////////////////////////////////////////////////////////////////////////
 
-   const randomInt = (min,max) =>
-      floor(random() * (max - min + 1)) + min;
+   const randomInt = ( min , max ) =>
+      floor( random() * ( max - min + 1 ) ) + min
 
    const waitTime = () => {
 
@@ -38,39 +37,32 @@
          randomInt(0,600) +
          randomInt(0,200) +
          randomInt(0,80)
-      );
+      )
 
-
-      console.log('Waiting',time);
-
-      return time;
-
+      return time
    }
 
-   const updateStatus = (activities) => {
+   const updateStatus = ( activities ) => {
 
-      for(const port of recipients.values())
-         port.postMessage(activities);
-
-   };
+      for ( const port of recipients.values() )
+         port.postMessage(activities)
+   }
 
    const startQueue = () => {
 
-      console.log('Starting Queue');
-
-      state = 'starting';
+      state = 'starting'
 
       create({
-         url: 'https://e621.net/',
-         pinned: true,
-         active: false
-      },(tab) => {
+         active : false ,
+         pinned : true ,
+         url : `https://e621.net/`
+      },( tab ) => {
 
-         workspace = tab;
+         workspace = tab
 
          executeScript(workspace.id,{
-            runAt: 'document_start',
-            code: `
+            runAt : 'document_start' ,
+            code : `
 
                const { connect } = chrome.runtime;
 
@@ -92,178 +84,175 @@
 
             `
          },() => {
-
-            status = 'injecting';
-
-         });
-
-      });
-
-   };
+            status = 'injecting'
+         })
+      })
+   }
 
    const stopQueue = () => {
 
-      console.log('Stopping Queue');
-
-      state = 'stopping';
-      connection = null;
+      connection = null
+      state = 'stopping'
 
       remove(workspace.id,() => {
 
+         if ( queue.length > 0 )
+            return startQueue()
 
-         if(queue.length > 0)
-            return startQueue();
+         state = false
+      })
+   }
 
-         state = false;
+   const nextItem = ( delay = true ) => {
 
-      });
+      console.log(`Items left: ${ queue.length }`)
 
-   };
+      if( queue.length < 1 )
+         return stopQueue()
 
-   const nextItem = (delay = true) => {
+      if( delay )
+         return setTimeout(() => nextItem(false),waitTime())
 
-      console.log(`Items left: ${ queue.length }`);
+      item = queue.shift()
 
-      if(queue.length < 1)
-         return stopQueue();
+      const { url , name } = item
 
-      if(delay)
-         return setTimeout(() => nextItem(false),waitTime());
+      state = 'busy'
 
+      console.log('Next Item',name,url)
 
-      item = queue.shift();
+      updateStatus([{
+         status : 'inProgress' ,
+         name
+      }])
 
-      const { url , name } = item;
+      connection.postMessage({ name , url })
+   }
 
-      state = 'busy';
+   /////////////////////////////////////////////////////////////////////////////
 
-      console.log('Next Item',name,url);
-
-      updateStatus([{ name , status: 'inProgress' }]);
-
-      connection.postMessage({ name , url });
-
-   };
-
-
-   /*
-         APPEND NEW QUEUE ENTRY
-   */
-
-   Download.append = ({ files }) => 
+   Download.append = ({ files }) =>
       new Promise(( resolve ) => {
 
          setTimeout(() => {
 
-            const add = files.filter((file) => !completed.has(file.name));
+            const add = files.filter(( file ) =>
+               ! completed.has(file.name)
+            )
 
             if( add.length < 1 )
                return resolve()
 
-            queue = queue.concat(add);
+            queue = queue.concat(add)
 
-            updateStatus(queue.map(({ name }) => ({ name , status: 'waiting' })));
+            const status = queue.map(({ name }) => ({
+               status : 'waiting' ,
+               name : name
+            }))
 
-            if(state)
+            updateStatus(status)
+
+            if( state )
                return resolve()
 
-            startQueue();
+            startQueue()
             resolve()
 
-         },0);
+         },0)
       })
-   
 
+   /////////////////////////////////////////////////////////////////////////////
 
-   /*
-         LISTEN FOR DOWNLOAD TAB REQUESTS
-   */
+   onConnect.addListener(( port ) => {
 
-   onConnect.addListener((port) => {
+      switch ( port.name ){
+      case 'download' :
 
-      switch(port.name){
-      case 'download':
+         port.onDisconnect.addListener(( port ) => {
 
-         port.onDisconnect.addListener((port) => {
+            const { tabId } = port.sender.tab
 
-            const { tabId } = port.sender.tab;
-            recipients.delete(tabId);
+            recipients.delete(tabId)
+         })
 
-         });
+         return
 
-         return;
-      case 'downloader':
+      case 'downloader' :
 
-         const newInstance = ! connection;
+         const newInstance = ! connection
 
-         connection = port;
+         connection = port
 
-         port.onMessage.addListener((msg) => {
+         port.onMessage.addListener(( msg ) => {
 
-            const { name , type } = msg;
+            const { name , type } = msg
 
-            switch(type){
-            case 'failed':
+            switch ( type ){
+            case 'failed' :
 
-               console.error(msg.error);
-               updateStatus([{ name , status: 'failed' }]);
-               nextItem();
+               console.error(msg.error)
 
-               return;
-            case 'complete':
+               updateStatus([{
+                  status : 'failed' ,
+                  name : name
+               }])
 
-               updateStatus([{ name , status: 'downloading' }]);
+               nextItem()
 
-               return;
-            default:
-               console.warn(msg);
+               return
+
+            case 'complete' :
+
+               updateStatus([{
+                  status : 'downloading' ,
+                  name : name
+               }])
+
+               return
+
+            default :
+               console.warn(msg)
             }
+         })
 
+         state = 'ready'
 
-         });
+         if ( newInstance )
+            nextItem(false)
 
-         state = 'ready';
-
-         if(newInstance)
-            nextItem(false);
-
-         return;
+         return
       }
+   })
 
-   });
+   onUpdated.addListener(( tabId , info , tab ) => {
 
+      if( workspace?.id != tabId )
+         return
 
-   /*
-         DOWNLOADER INJECTION
-   */
+      const { status , url } = info
 
-   onUpdated.addListener((tabId,info,tab) => {
+      if( status !== 'loading' )
+         return
 
-      if(workspace?.id != tabId)
-         return;
+      if( url !== item?.url )
+         return
 
-      const { status , url } = info;
+      const { name } = item
 
-      if(status !== 'loading' || url !== item?.url)
-         return;
+      let type = url.split(/\./g).pop()
 
+      if( type === 'jpeg' || type === 'jpg' )
+         type = 'png'
 
-      const { name } = item;
-
-      let type = url.split(/\./g).pop();
-
-      if(type === 'jpeg' || type === 'jpg')
-         type = 'png';
-
-      item.type = type;
+      item.type = type
 
       executeScript(tabId,{
-         runAt: 'document_start',
-         code: `
+         runAt : 'document_start' ,
+         code : `
 
             (() => {
 
-               console.log('Startin up');
+               console.log('Starting up');
 
                const { connect } = chrome.runtime;
 
@@ -307,37 +296,46 @@
 
          `
       },() => {
+         state = 'injecting'
+      })
+   })
 
-         state = 'injecting';
+   onChanged.addListener(( delta ) => {
 
-      });
+      const { id , state , filename } = delta
 
-   });
+      if ( ! item )
+         return
 
+      if ( item.downloadId === id ){
 
-   onChanged.addListener((delta) => {
+         if(
+            state?.previous === 'in_progress' &&
+            state?.current === 'complete'
+         ){
 
-      const { id , state , filename } = delta;
+            updateStatus([{
+               status: 'complete' ,
+               name : item.name
+            }])
 
-      if(!item)
-         return;
+            completed.add(name)
+            item = null
 
-      if(item.downloadId === id){
-         if(state?.current === 'complete' && state?.previous === 'in_progress'){
-            updateStatus([{ name: item.name , status: 'complete' }]);
-            completed.add(name);
-            item = null;
-            nextItem();
+            nextItem()
          }
 
       } else {
 
-         const name = filename?.current;
+         const name = filename?.current
 
-         if(new RegExp(`${ item.name }( \\(\\d+\\))?\\.${ item.type }$`).test(name))
-            item.downloadId = id;
+         const pattern = `${ item.name }( \\(\\d+\\))?\\.${ item.type }$`
+
+         const regex = new Regex(pattern)
+
+         if ( regex.test(name) )
+            item.downloadId = id
       }
+   })
 
-   });
-
-})();
+})()

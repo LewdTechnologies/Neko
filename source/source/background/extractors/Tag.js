@@ -2,29 +2,25 @@
 (() => {
 
 
-    /*
-     *  Extract Tags
-     */
+   Extractor.tagExtractor =
+      ( element ) =>
+      ( resolve ) =>
+   {
 
-    Extractor.tagExtractor = 
-        ( element ) => 
-        ( resolve ) => 
-    {
+      try {
 
-        try {
+         const
+            category = element.dataset.category ,
+            count = Number( element.dataset.count ) ,
+            id = decodeURIComponent( element.dataset.name )
 
-            const 
-                category = element.dataset.category ,
-                count = Number( element.dataset.count ) ,
-                id = decodeURIComponent( element.dataset.name )
+         const name = Tag_Name.from(id)
 
-            const name = Tag_Name.from(id)
+         resolve({ id , name , count , category })
 
-            resolve({ id , name , count , category })
+      } catch ( error ) {
+         console.log(error)
+      }
+   }
 
-        } catch ( error ) { 
-            console.log(error)
-        }
-    }
-
-})();
+})()

@@ -1,42 +1,44 @@
 
 (() => {
     
-    const
-        select_comments = '.desc > .post-score > .post-score-comments' ,
-        select_posts = '#posts article' ,
-        select_tags = '#tag-box > ul > li' ;
+   const
+      select_comments = `.desc > .post-score > .post-score-comments` ,
+      select_posts = `#posts article` ,
+      select_tags = `#tag-box > ul > li`
 
 
-    /*
-     *  Extract Posts
-     *  from a given document.
-     */
+   /**
+    *  Extract Posts
+    *  from a given document.
+    */
 
-    Extractor.postsExtractor = (doc) => (resolve) => {
+    Extractor.postsExtractor = 
+      ( document ) => 
+      ( resolve ) => {
 
-        const info = {
+         const info = {
             posts : [] ,
             tags : [] ,
             user : {}
-        }
+         }
 
 
-        /*
-         *  Extract Tag Data
-         */
+         /**
+          *  Extract Tag Data
+          */
 
-        selectAll(doc,select_tags).forEach(( element ) => {
+         selectAll(document,select_tags).forEach(( element ) => {
             Extractor.tagExtractor(element)(( tag ) => 
-                info.tags.push(tag)
+               info.tags.push(tag)
             )
-        })
+         })
 
 
         /*
          *  Extract Post Data
          */
 
-        selectAll(doc,select_posts).forEach(( element ) => {
+        selectAll(document,select_posts).forEach(( element ) => {
             extractPost(element)(( post ) => 
                 info.posts.push(post))
         })
@@ -50,7 +52,7 @@
 
             const [ id , name ] = [ 'id' , 'name' ]
                 .map((type) => `current-user-${ type }`)
-                .map((name) => findMeta(doc,name));
+                .map((name) => findMeta(document,name));
 
             const { user } = info;
             

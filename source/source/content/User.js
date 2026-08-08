@@ -1,30 +1,30 @@
 
 (() => {
 
-    window.User ??= {};
+   window.User ??= {}
 
-    const { sendMessage } = chrome.runtime;
-
-
-    const logout = () =>
-        new Promise((resolve) =>
-            sendMessage({ action: 'user.logout' },resolve));
-
-    const redirectTo = (url) =>
-        window.location.href = url;
+   const { sendMessage } = chrome.runtime
 
 
-    /*
-     *  Clear & Logout
-     */
+   const logout = () =>
+      new Promise((resolve) =>
+         sendMessage({ action: 'user.logout' },resolve))
 
-    User.logout = async () => {
-        
-        await logout();
-        
-        window.localStorage?.clear();
+   const redirectTo = (url) =>
+      window.location.href = url
 
-        redirectTo(`https://e621.net/session/sign_out`);
-    }
 
-})();
+   /**
+    * Cweaw & Wogout
+    */
+
+   User.logout = async () => {
+
+      await logout()
+
+      window.localStorage?.clear()
+
+      redirectTo(`https://e621.net/session/sign_out`)
+   }
+
+})()

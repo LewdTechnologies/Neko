@@ -1,92 +1,76 @@
 
 (() => {
 
-    window.Settings ??= {};
+   window.Settings ??= {}
 
-    const { connect } = chrome.runtime;
-
-
-    const
-        listeners = new Map ,
-        settings = new Map ;
+   const { connect } = chrome.runtime
 
 
-    const port = connect({ name: 'settings' });
+   const
+      listeners = new Map ,
+      settings = new Map
 
 
-    const update = (type,value) => {
-
-        settings.set(type,value);
-
-        listeners
-        .get(type)
-        ?.forEach((listener) => listener(value));
-    }
-
-    const transmit = (type,value) =>
-        port.postMessage([ type , value ]);
+   const port = connect({
+      name : 'settings'
+   })
 
 
-    /*
-     *  Listener
-     */
+   const update = ( type , value ) => {
 
-    let listener = (data = []) => {
+      settings.set ( type , value )
 
-        data.forEach(([ type , value ]) =>
-            update(type,value));
+      listeners
+      .get ( type )
+      ?.forEach (( listener ) => listener( value ))
+   }
 
-        listener = ([ type , value ]) =>
-            update(type,value);
-    };
-
-    port.onMessage.addListener(listener);
+   const transmit = ( type , value ) =>
+      port.postMessage ([ type , value ])
 
 
-    /*
-     *  Query Setting
-     */
+   let listener = ( data = [] ) => {
 
-    Settings.is = (type) =>
-        settings.get(type);
+      data.forEach (([ type , value ]) =>
+         update ( type , value ) )
 
-    Settings.not = (type) =>
-        ! settings.get(type);
+      listener = ([ type , value ]) =>
+         update ( type , value )
+   }
 
+   port.onMessage.addListener(listener)
 
-    /*
-     *  Update Setting
-     */
+   /////////////////////////////////////////////////////////////////////////////
 
-    Settings.set = (...args) => {
-        update(...args);
-        transmit(...args);
-    }
+   Settings.is = ( type ) =>
+      settings.get ( type )
 
+   Settings.not = ( type ) =>
+      ! settings.get ( type )
 
-    /*
-     *  Toggle Setting
-     */
+   /////////////////////////////////////////////////////////////////////////////
 
-    Settings.toggle = (type) =>
-        Settings.set(type,Settings.not(type));
+   Settings.set = ( ... args ) => {
+      update ( ... args )
+      transmit ( ... args )
+   }
 
+   /////////////////////////////////////////////////////////////////////////////
 
-    /*
-     *  Settings Change Event
-     */
+   Settings.toggle = ( type ) =>
+      Settings.set ( type , Settings.not(type) )
 
-    Settings.on = (type) => (resolve) => {
+   Settings.on = ( type ) => ( resolve ) => {
 
-        if(!listeners.has(type))
-            listeners.set(type,new Set);
+      if( ! listeners.has(type) )
+         listeners.set ( type , new Set )
 
-        listeners
-        .get(type)
-        .add(resolve);
+      listeners
+      .get ( type )
+      .add ( resolve )
 
-        if(settings.has(type))
-            resolve(settings.get(type));
-    }
+      if( settings.has(type) )
+         resolve ( settings.get ( type ) )
+   }
 
-})();
+})()
