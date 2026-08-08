@@ -1,22 +1,23 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
     window.Download ??= {};
 
 
-    let 
+    let
         indicator ,
         selection ,
         filecount ,
         append ,
         posts ;
 
-    let 
+    let
         selectionMode = true ,
         statuses = new Map ,
         isActive = false ,
         files = [] ;
-    
+
     let
         on_selection_action ,
         on_start_selection ,
@@ -100,8 +101,8 @@
 
             const { style , children } = indicator;
 
-            style.display = [...children].isEmpty() 
-                ? 'none' 
+            style.display = [...children].isEmpty()
+                ? 'none'
                 : 'flex' ;
 
         })()
@@ -111,10 +112,10 @@
 
     const resetMarking = (element) =>
         element.children[0].style.backgroundColor = '';
-    
+
     const resetMarkings = () => selectAll('post')
         .forEach(resetMarking);
-    
+
 
     const queueFiles = () => {
 
@@ -171,7 +172,7 @@
 
             const { style } = selection;
 
-            const [ x , y , width , height ] = 
+            const [ x , y , width , height ] =
                 normalizedBounds();
 
             style.height = `${ height }px`;
@@ -188,10 +189,10 @@
 
                 const [ image ] = post.children;
 
-                const { x , y , width , height } = 
+                const { x , y , width , height } =
                     image.getBoundingClientRect();
-                
-                const [ X , Y , Width , Height ] = 
+
+                const [ X , Y , Width , Height ] =
                     normalizedBounds();
 
                // console.debug({ x ,y,width,height},{X,Y,Width,Height})
@@ -232,7 +233,7 @@
                 files = files.concat(selected);
             else {
                 files = files.filter((file) => {
-                    
+
                     for(const post of selected)
                         if(post.name === file.name)
                             return false;

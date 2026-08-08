@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -12,8 +13,8 @@
 
         Settings.on('minimized_mode')((state) => {
 
-            state = (state) 
-                ? 'add' 
+            state = (state)
+                ? 'add'
                 : 'remove' ;
 
             document.body.classList[state]('minimize');

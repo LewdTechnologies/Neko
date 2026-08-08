@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -56,7 +57,7 @@
             const { button , target } = event;
 
             let mode = target.localName;
-            
+
             console.debug('Rating Click',{ button , mode })
 
             switch(button){

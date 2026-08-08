@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -36,7 +37,7 @@
                               Page.isNSFW ?
                               `<rating>
                                  <explicit>
-                                    
+
                                     <img src='${ chrome.extension.getURL('resource/icons/NVTR1LKIZD.png') }'>
                                  </explicit>
                                  <questionable>

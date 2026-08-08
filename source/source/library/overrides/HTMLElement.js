@@ -1,24 +1,24 @@
-
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
-   
-   const 
+
+   const
       { defineProperty } = Object ,
       { prototype } = HTMLElement
 
 
-   const override = 
-      ( name ) => 
+   const override =
+      ( name ) =>
       ( method ) =>
       prototype[ name ] = method
 
-   const get = 
-      ( name ) => 
+   const get =
+      ( name ) =>
       ( get ) =>
       defineProperty(prototype,name,{ get })
 
-   const set = 
-      ( name ) => 
+   const set =
+      ( name ) =>
       ( set ) =>
       defineProperty(prototype,name,{ set })
 
@@ -29,9 +29,9 @@
 
    set('visible')(
    function(state){
-      this.style.visibility = state 
-         ? 'visible' 
-         : 'hidden' 
+      this.style.visibility = state
+         ? 'visible'
+         : 'hidden'
    })
 
 
@@ -41,7 +41,7 @@
 
    override('show')(
    function(){
-      this.visible = true 
+      this.visible = true
    })
 
 
@@ -51,7 +51,7 @@
 
    override('hide')(
    function(){
-      this.visible = false 
+      this.visible = false
    })
 
 

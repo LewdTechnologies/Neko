@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -27,7 +28,7 @@
             tags = tags.filter((tag) => {
 
                 if(tag.startsWith('rating:')){
-                    
+
                     tag = tag.slice(7);
 
                     if(['safe','questionable','explicit'].includes(tag))
@@ -90,7 +91,7 @@
 
         set page(page){
             this.#parameter.page = page }
-            
+
         set rating(rating){
             this.#parameter.rating = rating }
 
@@ -98,7 +99,7 @@
             this.#parameter.tags = tags
                 .map(({ id , negative }) => (negative ? '-' : '') + id);
         }
-        
+
 
         redirectTo(){
             window.location.href = this.build(); }

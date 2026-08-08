@@ -1,25 +1,26 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
-    
+
    const
       { runtime , tabs } = chrome ,
       { onMessage } = runtime
-      
 
-   const openTab = ({ url , active }) => 
+
+   const openTab = ({ url , active }) =>
       new Promise(( resolve ) =>
          tabs.create({ url , active },resolve))
 
-        
+
    /* Input Requests */
-    
+
    const requests = {
       'download.append' : Download.append ,
       'extractHtml' : Extractor.process ,
       'user.logout' : User.logout ,
       'tabs.open' : openTab
    }
-    
+
 
    /* Listen To Content Script */
 
@@ -28,7 +29,7 @@
       const { action } = args
 
       if( action ){
-         
+
          const { data = [] } = args
 
          const tabId = sender?.tab?.id

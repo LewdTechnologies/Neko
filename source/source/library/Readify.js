@@ -1,4 +1,4 @@
-
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -8,7 +8,7 @@
 
 
    Readify.postCount = ( count ) => {
-      
+
       switch ( true ){
       case count < 1e3 :
          return `${ count }`

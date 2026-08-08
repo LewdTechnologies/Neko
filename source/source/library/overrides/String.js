@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -14,7 +15,7 @@
 
    override('capitalize')(
       function (){
-        return `${ this.charAt(0).toUpperCase() }${ this.substring(1) }` 
+        return `${ this.charAt(0).toUpperCase() }${ this.substring(1) }`
       })
 
 
@@ -24,7 +25,7 @@
 
    override('toWords')(
       function(){
-         return this.split(/ +/) 
+         return this.split(/ +/)
       })
 
 
@@ -46,7 +47,7 @@
 
    override('remove')(
       function ( regex ){
-         return this.replaceAll(regex,'') 
+         return this.replaceAll(regex,'')
       })
 
 })();

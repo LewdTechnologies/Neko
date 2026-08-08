@@ -1,23 +1,24 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
-   const 
+   const
       { defineProperty } = Object ,
       { prototype } = Node
 
 
-   const override = 
-      ( name ) => 
+   const override =
+      ( name ) =>
       ( func ) =>
       prototype[name] = func
 
-   const get = 
-      ( name ) => 
+   const get =
+      ( name ) =>
       ( get ) =>
       defineProperty(prototype,name,{ get })
 
-   const set = 
-      ( name ) => 
+   const set =
+      ( name ) =>
       ( set ) =>
       defineProperty(prototype,name,{ set })
 
@@ -28,7 +29,7 @@
 
    get('nodes')(
    function(){
-      return [ ...this.childNodes ] 
+      return [ ...this.childNodes ]
    })
 
 

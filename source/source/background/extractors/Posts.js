@@ -1,6 +1,7 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
-    
+
    const
       select_comments = `.desc > .post-score > .post-score-comments` ,
       select_posts = `#posts article` ,
@@ -12,8 +13,8 @@
     *  from a given document.
     */
 
-    Extractor.postsExtractor = 
-      ( document ) => 
+    Extractor.postsExtractor =
+      ( document ) =>
       ( resolve ) => {
 
          const info = {
@@ -28,7 +29,7 @@
           */
 
          selectAll(document,select_tags).forEach(( element ) => {
-            Extractor.tagExtractor(element)(( tag ) => 
+            Extractor.tagExtractor(element)(( tag ) =>
                info.tags.push(tag)
             )
          })
@@ -39,7 +40,7 @@
          */
 
         selectAll(document,select_posts).forEach(( element ) => {
-            extractPost(element)(( post ) => 
+            extractPost(element)(( post ) =>
                 info.posts.push(post))
         })
 
@@ -55,7 +56,7 @@
                 .map((name) => findMeta(document,name));
 
             const { user } = info;
-            
+
             user.isAnon = ( name === 'Anonymous' )
             user.name = name
             user.id = Number(id) ?? -1
@@ -70,7 +71,7 @@
     function extractPost(element){
         return (resolve) => {
             try {
-                
+
                 const { dataset } = element;
 
                 const info = {
@@ -83,12 +84,12 @@
                     flags : new Set ,
                     tags : dataset.tags.split(' ') ,
                     id : dataset.id ,
-                    
+
                     uploader : {
                         name : dataset.uploader ,
                         id : Number(dataset.uploaderId)
                     },
-                    
+
                     urls : {
                         preview : dataset.previewUrl ,
                         sample : dataset.sampleUrl ,
@@ -104,7 +105,7 @@
                     info.flags.add('sound');
 
                 resolve(info);
-                
+
             } catch (error) { console.log(error); }
         }
     }

@@ -1,4 +1,4 @@
-
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -7,8 +7,8 @@
 
     const override = (name) => (method) =>
         prototype[name] = method;
-    
-    const capitalize = (string) => 
+
+    const capitalize = (string) =>
         string.capitalize();
 
 
@@ -26,7 +26,7 @@
 
     override('toSentence')(function(){
         return this.join(' ') })
-        
+
 
     /**
      * To Query

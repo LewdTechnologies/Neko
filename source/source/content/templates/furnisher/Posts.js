@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -118,8 +119,8 @@
          }
 
          tags
-         .sort(( a , b ) => 
-            Category_Order[ a.category ] - 
+         .sort(( a , b ) =>
+            Category_Order[ a.category ] -
             Category_Order[ b.category ]
          )
          .forEach((tag,index) => {

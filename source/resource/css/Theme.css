@@ -1,3 +1,6 @@
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+
 /*
       BASE
 */
@@ -280,7 +283,7 @@ taglist > tag > name > span {
 taglist tag {
 
    ---Color : var( --category-unknown ) ;
-   
+
    &[ data-category = 'copyright' ]{ ---Color : var( --category-copyright ) ; }
    &[ data-category = 'character' ]{ ---Color : var( --category-character ) ; }
    &[ data-category = 'unknown' ]{ ---Color : var( --category-unknown ) ; }

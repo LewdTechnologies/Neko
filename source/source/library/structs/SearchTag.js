@@ -1,4 +1,4 @@
-
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 (() => {
 
@@ -20,14 +20,14 @@
       get id (){
          return this.#id
       }
-      
+
       get query (){
          return this.#prefix + this.#encodedId
       }
-      
+
 
       get #prefix (){
-         return this.#negative 
+         return this.#negative
             ? '-' : ''
       }
 
